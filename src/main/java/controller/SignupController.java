@@ -14,10 +14,14 @@ import model.Model;
 import model.User;
 
 public class SignupController {
+    @FXML
+    private TextField fullName;
 	@FXML
 	private TextField username;
 	@FXML
 	private TextField password;
+    @FXML
+    private TextField email;
 	@FXML
 	private Button createUser;
 	@FXML
@@ -38,7 +42,8 @@ public class SignupController {
 	@FXML
 	public void initialize() {
 		createUser.setOnAction(event -> {
-			if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
+			if (!fullName.getText().isEmpty() && !email.getText().isEmpty() &&
+                    !username.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
 					user = model.getUserDao().createUser(username.getText(), password.getText());
@@ -67,7 +72,7 @@ public class SignupController {
 	}
 	
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 500, 300);
+		Scene scene = new Scene(root, 500, 500);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.setTitle("Sign up");

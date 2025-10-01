@@ -30,6 +30,7 @@ public class Project {
     public StringProperty getTitle(){
         return this.title;
     }
+
     public void setLocation(StringProperty location){
         this.location = location;
     }

@@ -26,9 +26,9 @@
       <Label contentDisplay="CENTER" graphicTextGap="0.0" text="Password" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
       <TextField fx:id="name" maxHeight="26.0" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="159.0" promptText="Please enter your user name" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
       <PasswordField fx:id="password" promptText="Please enter your password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button fx:id="login" contentDisplay="CENTER" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" text="Login" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
+      <Button fx:id="login" contentDisplay="CENTER" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" text="Login" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
       <Label fx:id="message" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
-      <Button fx:id="signup" contentDisplay="CENTER" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" text="Signup" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
+      <Button fx:id="signup" contentDisplay="CENTER" maxHeight="30.0" maxWidth="60.0" mnemonicParsing="false" text="Signup" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="60.0" right="80.0" top="50.0" />

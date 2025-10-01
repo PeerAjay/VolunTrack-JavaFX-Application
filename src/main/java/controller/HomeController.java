@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -15,14 +16,22 @@ public class HomeController {
 	private MenuItem viewProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
 	@FXML
 	private MenuItem updateProfile; // // Corresponds to the Menu item "updateProfile" in HomeView.fxml
+    @FXML
+    private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
 	
 	public HomeController(Stage parentStage, Model model) {
 		this.stage = new Stage();
 		this.parentStage = parentStage;
 		this.model = model;
 	}
+
+    // Add your code to complete the functionality of the program
+
+    public void setUsername(String username) {
+        welcomeLabel.setText("Welcome, " + username + "!");
+    }
 	
-	// Add your code to complete the functionality of the program
+
 	
 	
 	

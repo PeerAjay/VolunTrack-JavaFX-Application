@@ -56,6 +56,8 @@ public class LoginController {
 							VBox root = loader.load();
 	
 							homeController.showStage(root);
+                            homeController.setUsername(user.getUsername());
+
 							stage.close();
 						}catch (IOException e) {
 							message.setText(e.getMessage());

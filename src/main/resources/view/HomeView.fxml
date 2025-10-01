@@ -26,7 +26,7 @@
             </Menu>
       </menus>
     </MenuBar>
-      <Label fx:id="welcomeLabel" text="Welcome " style="-fx-font-size: 12pt;"  wrapText="true" />
+      <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />
 
   </children>
 </VBox>

@@ -28,14 +28,8 @@ public class HomeController {
     // Add your code to complete the functionality of the program
 
     public void setUsername(String username) {
-        welcomeLabel.setText("Welcome, " + username + "!");
+        welcomeLabel.setText("Welcome, " + username);
     }
-	
-
-	
-	
-	
-	
 	
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 500, 300);

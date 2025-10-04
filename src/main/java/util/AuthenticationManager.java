@@ -30,14 +30,17 @@ public class AuthenticationManager {
     public static List<String> existsCheck(final String fullName, final String email, final String userName) {
         List<String> errors = new ArrayList<>();
 
-        if (fullName == null) {
+        if (fullName == null || fullName.isBlank()) {
             errors.add("Please enter your full name");
+            //System.out.println("AUTHMANAGER FULLNAME");
         }
-        if (email == null) {
+        if (email == null || email.isBlank()) {
             errors.add("Please enter your email");
+            //System.out.println("AUTHMANAGER EMAIL");
         }
-        if (userName == null) {
+        if (userName == null || userName.isBlank()) {
             errors.add("Please enter your username");
+            //System.out.println("AUTHMANAGER USERNAME");
         }
 
         return errors;

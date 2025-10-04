@@ -47,13 +47,11 @@ public class SignupController {
 	@FXML
 	public void initialize() {
 		createUser.setOnAction(event -> {
-            List<String> Errors =  new ArrayList<String>();
-            Errors = AuthenticationManager.getPasswordErrors(password.getText());
+            List<String> errors = AuthenticationManager.getPasswordErrors(password.getText());
 
-            //figure ouy how to attatch two lists together
-            Errors.addAll(AuthenticationManager.existsCheck(fullName.getText(), email.getText(), username.getText()));
+            errors.addAll(AuthenticationManager.existsCheck(fullName.getText(), email.getText(), username.getText()));
 
-			if (Errors.isEmpty()) {
+			if (errors.isEmpty()) {
 				User user;
 				try {
 					user = model.getUserDao().createUser(email.getText(), fullName.getText(), username.getText(), password.getText());
@@ -70,10 +68,8 @@ public class SignupController {
 				}
 				
 			} else {
-				for(int i = 0; i < Errors.size(); ++i){
-                    status.setText(Errors.get(i));
-                    System.out.println(Errors.get(i));
-                }
+                String errorMessage = String.join("\n", errors);
+                status.setText(errorMessage);
 				status.setTextFill(Color.RED);
 			}
 		});

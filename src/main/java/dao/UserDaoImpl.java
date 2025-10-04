@@ -58,4 +58,19 @@ public class UserDaoImpl implements UserDao {
 			return new User(username, password);
 		} 
 	}
+
+    @Override
+    public boolean checkUsernameDuplicate(String username) throws SQLException{
+        String sql = "SELECT 1 FROM users WHERE username = ? LIMIT 1";
+
+        try (Connection connection = Database.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);) {
+                stmt.setString(1, username);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    return rs.next();
+                }
+            }
+    }
+
 }

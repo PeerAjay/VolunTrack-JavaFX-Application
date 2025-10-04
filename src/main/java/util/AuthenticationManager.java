@@ -1,5 +1,9 @@
 package util;
 
+import dao.UserDao;
+import dao.UserDaoImpl;
+
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -28,6 +32,7 @@ public class AuthenticationManager {
     }
 
     public static List<String> existsCheck(final String fullName, final String email, final String userName) {
+        UserDao userDao = new UserDaoImpl();
         List<String> errors = new ArrayList<>();
 
         if (fullName == null || fullName.isBlank()) {
@@ -41,6 +46,15 @@ public class AuthenticationManager {
         if (userName == null || userName.isBlank()) {
             errors.add("Please enter your username");
             //System.out.println("AUTHMANAGER USERNAME");
+        }
+
+        try {
+            if (userDao.checkUsernameDuplicate(userName)){
+                errors.add("Username already taken");
+            }
+        } catch (SQLException e) {
+            errors.add("ERROR checking username");
+            e.printStackTrace();
         }
 
         return errors;

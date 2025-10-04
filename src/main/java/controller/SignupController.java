@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 import javafx.fxml.FXML;
@@ -12,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Model;
 import model.User;
+import util.AuthenticationManager;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class SignupController {
     @FXML
@@ -42,8 +47,13 @@ public class SignupController {
 	@FXML
 	public void initialize() {
 		createUser.setOnAction(event -> {
-			if (!fullName.getText().isEmpty() && !email.getText().isEmpty() &&
-                    !username.getText().isEmpty() && !password.getText().isEmpty()) {
+            List<String> Errors =  new ArrayList<String>();
+            Errors = AuthenticationManager.getPasswordErrors(password.getText());
+
+            //figure ouy how to attatch two lists together
+            Errors.addAll(AuthenticationManager.existsCheck(fullName.getText(), email.getText(), username.getText()));
+
+			if (Errors.isEmpty()) {
 				User user;
 				try {
 					user = model.getUserDao().createUser(email.getText(), fullName.getText(), username.getText(), password.getText());
@@ -60,7 +70,10 @@ public class SignupController {
 				}
 				
 			} else {
-				status.setText("Empty username or password");
+				for(int i = 0; i < Errors.size(); ++i){
+                    status.setText(Errors.get(i));
+                    System.out.println(Errors.get(i));
+                }
 				status.setTextFill(Color.RED);
 			}
 		});

@@ -3,9 +3,9 @@ package util;
 import java.util.List;
 import java.util.ArrayList;
 
-public class PasswordManager {
+public class AuthenticationManager {
 
-    public static List<String> getValidationErrors(final String password) {
+    public static List<String> getPasswordErrors(final String password) {
         List<String> errors = new ArrayList<>();
 
         if (password == null || password.length() < 8) {
@@ -22,6 +22,22 @@ public class PasswordManager {
         }
         if (!password.matches(".*[@$!%*?&].*")) {
             errors.add("Password must contain at least one special character (@$!%*?&).");
+        }
+
+        return errors;
+    }
+
+    public static List<String> existsCheck(final String fullName, final String email, final String userName) {
+        List<String> errors = new ArrayList<>();
+
+        if (fullName == null) {
+            errors.add("Please enter your full name");
+        }
+        if (email == null) {
+            errors.add("Please enter your email");
+        }
+        if (userName == null) {
+            errors.add("Please enter your username");
         }
 
         return errors;

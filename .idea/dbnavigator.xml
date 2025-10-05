@@ -24,20 +24,23 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="dff56441-aa28-429e-a194-2957d13c6726">
-      <console name="Assignment DB" type="STANDARD" schema="main" session="Main"><![CDATA[DELETE FROM users WHERE username = 'as']]></console>
+      <console name="Assignment DB" type="STANDARD" schema="main" session="Main"><![CDATA[DROP TABLE users_old;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="dff56441-aa28-429e-a194-2957d13c6726" object-ref="consoles/Assignment DB" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="dff56441-aa28-429e-a194-2957d13c6726" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.users" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.users_old" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

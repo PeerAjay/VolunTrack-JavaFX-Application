@@ -24,7 +24,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="dff56441-aa28-429e-a194-2957d13c6726">
-      <console name="Assignment DB" type="STANDARD" schema="main" session="Main"><![CDATA[DROP TABLE users_old;]]></console>
+      <console name="Assignment DB" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

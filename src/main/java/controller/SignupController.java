@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import model.Model;
 import model.User;
 import util.AuthenticationManager;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 import java.util.ArrayList;

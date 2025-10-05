@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Model;
 import model.User;
+import util.AuthenticationManager;
 
 public class LoginController {
 	@FXML
@@ -40,13 +41,21 @@ public class LoginController {
 	}
 	
 	@FXML
-	public void initialize() {		
+	public void initialize() {
 		login.setOnAction(event -> {
+            boolean valid = false;
+
 			if (!name.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
-					user = model.getUserDao().getUser(name.getText(), password.getText());
-					if (user != null) {
+                    valid = AuthenticationManager.loginVerify(name.getText(), password.getText());
+					if (valid) {
+                        user = model.getUserDao().getUser(name.getText());
+
+                        if (user == null) {
+                            System.out.println("USER NULL");
+                        }
+
 						model.setCurrentUser(user);
 						try {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
@@ -56,6 +65,7 @@ public class LoginController {
 							VBox root = loader.load();
 	
 							homeController.showStage(root);
+                            //System.out.println("USERNAME: " + user.getUsername());
                             homeController.setUsername(user.getUsername());
 
 							stage.close();

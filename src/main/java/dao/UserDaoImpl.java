@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.mindrot.jbcrypt.BCrypt;
 
 import model.User;
 
@@ -25,12 +26,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String username, String password) throws SQLException {
-		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ? AND password = ?";
+	public User getUser(String username) throws SQLException {
+		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
+
 		try (Connection connection = Database.getConnection(); 
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
 			stmt.setString(1, username);
-			stmt.setString(2, password);
 			
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
@@ -46,16 +47,18 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(String email, String fullName, String username, String password) throws SQLException {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); //Hashing the password
+
 		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
 			stmt.setString(1, username);
-			stmt.setString(2, password);
+			stmt.setString(2, hashedPassword);
             stmt.setString(3, email);
             stmt.setString(4, fullName);
 
 			stmt.executeUpdate();
-			return new User(username, password);
+			return new User(username, null);
 		} 
 	}
 
@@ -71,6 +74,22 @@ public class UserDaoImpl implements UserDao {
                     return rs.next();
                 }
             }
+    }
+
+    //This is getting the hashed password from the database so that Authmanager can compare it with the plaintext
+    @Override
+    public String getHashedPassword(String username) throws SQLException {
+        String sql = "SELECT password FROM " + TABLE_NAME + " WHERE username = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("password");
+                }
+                return null;
+            }
+        }
     }
 
 }

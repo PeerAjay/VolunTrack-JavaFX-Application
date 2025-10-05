@@ -7,7 +7,23 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class AuthenticationManager {
+
+    public static boolean loginVerify(String username, String passwordPlain){
+        UserDao userDao = new UserDaoImpl();
+        try {
+            String hashedPassword = userDao.getHashedPassword(username);
+
+            if (hashedPassword != null && BCrypt.checkpw(passwordPlain, hashedPassword)) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static List<String> getPasswordErrors(final String password) {
         List<String> errors = new ArrayList<>();

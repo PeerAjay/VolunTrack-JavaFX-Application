@@ -19,6 +19,7 @@ import javafx.util.Callback;
 import model.Model;
 import model.User;
 import util.AuthenticationManager;
+import util.SessionManager;
 
 public class LoginController {
 	@FXML
@@ -51,6 +52,7 @@ public class LoginController {
                     valid = AuthenticationManager.loginVerify(name.getText(), password.getText());
 					if (valid) {
                         user = model.getUserDao().getUser(name.getText());
+                        SessionManager.getInstance().setCurrentUser(user);
 
                         if (user == null) {
                             System.out.println("USER NULL");
@@ -65,7 +67,7 @@ public class LoginController {
 							VBox root = loader.load();
 	
 							homeController.showStage(root);
-                            //System.out.println("USERNAME: " + user.getUsername());
+
                             homeController.setUsername(user.getUsername());
 
 							stage.close();

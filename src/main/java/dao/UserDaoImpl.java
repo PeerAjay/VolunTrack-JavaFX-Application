@@ -92,4 +92,19 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public boolean changePassword(String password, String username) throws SQLException{
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        String sql = "UPDATE " + TABLE_NAME + " SET password = ? WHERE username = ?";
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, hashedPassword);
+            stmt.setString(2, username);
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        }
+    }
+
 }

@@ -16,4 +16,5 @@ public interface UserDao {
 	User createUser(String email, String fullName, String username, String password) throws SQLException;
     boolean checkUsernameDuplicate(String username) throws SQLException;
     String getHashedPassword(String username) throws SQLException;
+    boolean changePassword(String password, String username) throws SQLException;
 }

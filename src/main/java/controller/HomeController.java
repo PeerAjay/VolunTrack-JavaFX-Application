@@ -62,7 +62,7 @@ public class HomeController {
                 passwordChangeController passwordChangeController =  new passwordChangeController(stage, model);
 
                 loader.setController(passwordChangeController);
-                GridPane root = loader.load();
+                VBox root = loader.load();
 
                 passwordChangeController.showStage(root);
 

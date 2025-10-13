@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class AuthenticationManager {
@@ -47,6 +48,40 @@ public class AuthenticationManager {
         return errors;
     }
 
+    public static List<String> getPasswordErrors(String oldPassword, final String newPassword) {
+        List<String> errors = new ArrayList<>();
+
+        User user = SessionManager.getInstance().getCurrentUser();
+        String hashedPasswordFrom = user.getPassword();
+
+        if (newPassword == null || newPassword.length() < 8) {
+            errors.add("Password must be at least 8 characters long.");
+        }
+        if (!newPassword.matches(".*[A-Z].*")) {
+            errors.add("Password must contain at least one uppercase letter.");
+        }
+        if (!newPassword.matches(".*[a-z].*")) {
+            errors.add("Password must contain at least one lowercase letter.");
+        }
+        if (!newPassword.matches(".*\\d.*")) {
+            errors.add("Password must contain at least one number.");
+        }
+        if (!newPassword.matches(".*[@$!%*?&].*")) {
+            errors.add("Password must contain at least one special character (@$!%*?&).");
+        }
+        if (oldPassword == null || oldPassword.isEmpty()){
+            errors.add("oldPassword field is empty");
+        }
+        if (BCrypt.checkpw(newPassword, hashedPasswordFrom)){
+            errors.add("New password cannot be the same as the old password");
+        }
+        if (!BCrypt.checkpw(oldPassword, hashedPasswordFrom)){
+            errors.add("Wrong Old Password");
+        }
+
+        return errors;
+    }
+
     public static List<String> existsCheck(final String fullName, final String email, final String userName) {
         UserDao userDao = new UserDaoImpl();
         List<String> errors = new ArrayList<>();
@@ -74,6 +109,14 @@ public class AuthenticationManager {
         }
 
         return errors;
+    }
+
+    public static boolean correctOldPassword(String password){
+        User user = SessionManager.getInstance().getCurrentUser();
+
+        String hashedPasswordFrom = user.getPassword();
+
+        return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 
 }

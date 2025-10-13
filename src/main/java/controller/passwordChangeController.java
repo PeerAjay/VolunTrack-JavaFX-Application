@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Model;
@@ -30,6 +31,7 @@ public class passwordChangeController {
     private Stage parentStage;
 
     @FXML private Button confirmChange;
+    @FXML private Button back;
     @FXML private TextField oldPassword;
     @FXML private TextField newPassword;
     @FXML private Label status;
@@ -46,13 +48,7 @@ public class passwordChangeController {
 
         confirmChange.setOnAction(event ->{
             List<String> errors = new ArrayList<>();
-
-            if (oldPassword.getText().isEmpty() || newPassword.getText().isEmpty()) {
-                errors.add("Please fill in both old and new password fields");
-            }
-            else{
-                errors = AuthenticationManager.getPasswordErrors(newPassword.getText());
-            }
+            errors = AuthenticationManager.getPasswordErrors(oldPassword.getText(), newPassword.getText());
 
             if(errors.isEmpty()){
                 try {
@@ -72,6 +68,26 @@ public class passwordChangeController {
             }
 
         });
+
+        //TO DO: IMPLEMENT LATER
+//        back.setOnAction(event ->{
+//
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
+//                // Customize controller instance
+//                HomeController homeController =  new homeController(stage, model);
+//
+//                loader.setController(homeController);
+//                VBox root = loader.load();
+//
+//                homeController.showStage(root);
+//
+//                stage.close();
+//            } catch (IOException e) {
+//                System.out.println("home change error");
+//            }
+//
+//        });
 
     }
 

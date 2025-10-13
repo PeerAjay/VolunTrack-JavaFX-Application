@@ -25,7 +25,7 @@
             <Menu fx:id="profile" mnemonicParsing="false" text="Profile">
               <items>
                 <MenuItem fx:id="viewProfile" mnemonicParsing="false" text="View my profile" />
-                  <MenuItem fx:id="updateProfile" mnemonicParsing="false" text="Update my profile" />
+                  <MenuItem fx:id="changePassword" mnemonicParsing="false" text="Change my password" />
               </items>
             </Menu>
       </menus>

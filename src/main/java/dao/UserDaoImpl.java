@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 		try (Connection connection = Database.getConnection();
 				Statement stmt = connection.createStatement();) {
 			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (username VARCHAR(10) NOT NULL,"
-					+ "password VARCHAR(8) NOT NULL," + "email VARCHAR(20) NOT NULL," + "fullName VARCHAR(40) NOT NULL," + "PRIMARY KEY (username))";
+					+ "password VARCHAR(60) NOT NULL," + "email VARCHAR(20) NOT NULL," + "fullName VARCHAR(40) NOT NULL," + "PRIMARY KEY (username))";
 			stmt.executeUpdate(sql);
 		} 
 	}

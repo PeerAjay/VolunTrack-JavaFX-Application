@@ -14,9 +14,11 @@ import javafx.collections.ObservableList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.User;
 import util.AuthenticationManager;
 
 public class passwordChangeController {
@@ -36,10 +38,21 @@ public class passwordChangeController {
 
     @FXML
     public void initialize() {
+        User user;
 
         confirmChange.setOnAction(event ->{
-            //List<String> errors =
+            List<String> errors = new ArrayList<>();
 
+            if (oldPassword.getText().isEmpty() || newPassword.getText().isEmpty()) {
+                errors.add("Please fill in both old and new password fields");
+            }
+            else{
+                errors = AuthenticationManager.getPasswordErrors(newPassword.getText());
+            }
+
+            if(errors.isEmpty()){
+
+            }
 
         });
 

@@ -33,6 +33,7 @@ public class Main extends Application {
 
 			GridPane root = loader.load();
 
+
 			loginController.showStage(root);
 		} catch (IOException | SQLException | RuntimeException e) {
 			Scene scene = new Scene(new Label(e.getMessage()), 200, 100);

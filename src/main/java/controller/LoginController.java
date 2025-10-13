@@ -109,7 +109,8 @@ public class LoginController {
 				stage.close();
 			} catch (IOException e) {
 				message.setText(e.getMessage());
-			}});
+			}
+        });
 	}
 	
 	public void showStage(Pane root) {

@@ -1,10 +1,13 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Model;
 import model.Project;
@@ -23,7 +26,7 @@ public class HomeController {
 	private Stage stage;
 	private Stage parentStage;
 	@FXML private MenuItem viewProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
-	@FXML private MenuItem updateProfile; // // Corresponds to the Menu item "updateProfile" in HomeView.fxml
+	@FXML private MenuItem changePassword; // // Corresponds to the Menu item "changePassword" in HomeView.fxml
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
 
     //These link the fields from the project object to the columns in the table view
@@ -50,6 +53,25 @@ public class HomeController {
 
         ObservableList<Project> projects = loadCSVData();
         projectTableView.setItems(projects);
+
+        changePassword.setOnAction(event ->{
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/passwordChange.fxml"));
+
+                // Customize controller instance
+                passwordChangeController passwordChangeController =  new passwordChangeController(stage, model);
+
+                loader.setController(passwordChangeController);
+                GridPane root = loader.load();
+
+                passwordChangeController.showStage(root);
+
+                stage.close();
+            } catch (IOException e) {
+                System.out.println("password change error");
+            }
+        });
+
     }
 
     //Function to load each row from the csv into Project objects

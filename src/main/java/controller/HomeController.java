@@ -50,9 +50,9 @@ public class HomeController {
 	}
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         //Loading the csv data using the loadCSVData helper function
-        ObservableList<Project> projects = loadCSVData();
+        ObservableList<Project> projects = loadProjectsfromDB();
         projectTableView.setItems(projects);
 
         //Making logout menu a label so it can act as a button
@@ -88,32 +88,11 @@ public class HomeController {
 
     }
 
-    //Function to load each row from the csv into Project objects
-    private ObservableList<Project> loadCSVData() {
-        ObservableList<Project> projects = FXCollections.observableArrayList();
-        String csvFile = "src/projects.csv"; //setting the file to the projects csv
-        String line;
-        String cvsSplitBy = ",";
-
-        //reading the csv file
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            br.readLine(); // Skipping header
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(cvsSplitBy);
-                Project project = new Project(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5]);
-                projects.add(project);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
+    //Loading the projects from the DB table
     private ObservableList<Project> loadProjectsfromDB() throws SQLException {
         ObservableList<Project> projects = FXCollections.observableArrayList();
 
         projects = model.getProjectsDao().loadProjects();
-
 
         return projects;
     }

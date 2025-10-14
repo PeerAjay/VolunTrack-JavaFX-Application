@@ -18,18 +18,22 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.MenuButton?>
 <VBox prefHeight="450.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="870.0" VBox.vgrow="NEVER">
-      <menus>
-            <Menu fx:id="profile" mnemonicParsing="false" text="Profile">
-              <items>
-                <MenuItem fx:id="viewProfile" mnemonicParsing="false" text="View my profile" />
-                  <MenuItem fx:id="changePassword" mnemonicParsing="false" text="Change my password" />
-              </items>
-            </Menu>
-      </menus>
-    </MenuBar>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+          <items>
+              <MenuButton fx:id="profileMenu" mnemonicParsing="false" text="Profile">
+                  <items>
+                      <MenuItem fx:id="viewProfile" mnemonicParsing="false" text="View my profile" />
+                      <MenuItem fx:id="changePassword" mnemonicParsing="false" text="Change my password" />
+                  </items>
+              </MenuButton>
+
+              <Button fx:id="logout" mnemonicParsing="false" text="Logout"/>
+          </items>
+      </ToolBar>
       <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />
       <TableView fx:id="projectTableView">
           <columns>

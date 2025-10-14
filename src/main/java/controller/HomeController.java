@@ -3,8 +3,8 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -13,12 +13,13 @@ import model.Model;
 import model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javafx.scene.control.cell.PropertyValueFactory;
+import util.AuthenticationManager;
+import util.SessionManager;
 
 
 public class HomeController {
@@ -26,7 +27,8 @@ public class HomeController {
 	private Stage stage;
 	private Stage parentStage;
 	@FXML private MenuItem viewProfile; // Corresponds to the Menu item "viewProfile" in HomeView.fxml
-	@FXML private MenuItem changePassword; // // Corresponds to the Menu item "changePassword" in HomeView.fxml
+	@FXML private MenuItem changePassword;
+    @FXML private Button logout;// // Corresponds to the Menu item "logout" in HomeView.fxml
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
 
     //These link the fields from the project object to the columns in the table view
@@ -55,6 +57,9 @@ public class HomeController {
         ObservableList<Project> projects = loadCSVData();
         projectTableView.setItems(projects);
 
+        //Making logout menu a label so it can act as a button
+        Label logoutLabel = new Label("logout");
+
         //On 'change password' button press
         changePassword.setOnAction(event ->{
             try {
@@ -73,6 +78,14 @@ public class HomeController {
             } catch (IOException e) {
                 System.out.println("password change error");
             }
+        });
+
+        logout.setOnAction(event ->{
+            System.out.println("Logout action");
+            SessionManager.getInstance().clearSession();
+            stage.close();
+            parentStage.show();
+
         });
 
     }

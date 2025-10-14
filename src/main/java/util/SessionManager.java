@@ -27,6 +27,7 @@ public class SessionManager {
     //Get the current user of the current session
     public User getCurrentUser() {
         if (currentUser == null) {
+            System.out.println("");
             throw new IllegalStateException("No user is logged in.");
         }
         return currentUser;

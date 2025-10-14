@@ -24,16 +24,15 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="dff56441-aa28-429e-a194-2957d13c6726">
-      <console name="Assignment DB" type="STANDARD" schema="main" session="Main" />
+      <console name="Assignment DB" type="STANDARD" schema="main" session="Main"><![CDATA[SELECT title FROM projects LIMIT 5
+ALTER TABLE projects RENAME COLUMN "PROJECT TITLE" TO title]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="dff56441-aa28-429e-a194-2957d13c6726" object-ref="schemas/main/tables/projects" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="dff56441-aa28-429e-a194-2957d13c6726" />

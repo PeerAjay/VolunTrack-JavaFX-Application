@@ -17,6 +17,8 @@ import javafx.collections.ObservableList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import util.AuthenticationManager;
 import util.SessionManager;
@@ -104,6 +106,15 @@ public class HomeController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return projects;
+    }
+
+    private ObservableList<Project> loadProjectsfromDB() throws SQLException {
+        ObservableList<Project> projects = FXCollections.observableArrayList();
+
+        projects = model.getProjectsDao().loadProjects();
+
+
         return projects;
     }
 

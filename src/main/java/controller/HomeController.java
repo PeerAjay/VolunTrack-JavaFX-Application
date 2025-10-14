@@ -49,10 +49,6 @@ public class HomeController {
 
     @FXML
     public void initialize() {
-        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        dayColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
-
         //Loading the csv data using the loadCSVData helper function
         ObservableList<Project> projects = loadCSVData();
         projectTableView.setItems(projects);

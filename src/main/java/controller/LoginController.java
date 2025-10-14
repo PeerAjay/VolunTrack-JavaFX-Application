@@ -23,15 +23,15 @@ import util.SessionManager;
 
 public class LoginController {
 	@FXML
-	private TextField name;
+	private TextField name; //Corresponds to the name text field
 	@FXML
-	private PasswordField password;
+	private PasswordField password; //Corresponds to the password field
 	@FXML
-	private Label message;
+	private Label message; //Corresponds to the error message label
 	@FXML
-	private Button login;
+	private Button login; //Corresponds to the login button
 	@FXML
-	private Button signup;
+	private Button signup; //Corresponds to the sign in button
 
 	private Model model;
 	private Stage stage;
@@ -43,23 +43,30 @@ public class LoginController {
 	
 	@FXML
 	public void initialize() {
+
+        //When the login button is pressed
 		login.setOnAction(event -> {
             boolean valid = false;
 
+            //If the name and password fields are filled in
 			if (!name.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
+                    //Calling the authentication manager to verify the password againts the username
                     valid = AuthenticationManager.loginVerify(name.getText(), password.getText());
 					if (valid) {
+                        //if its valid create a new user for the session and set it as the current user for the session
+                        //  using sessionmanager
                         user = model.getUserDao().getUser(name.getText());
                         SessionManager.getInstance().setCurrentUser(user);
 
+                        //check if the user is null
                         if (user == null) {
                             System.out.println("USER NULL");
                         }
 
 						model.setCurrentUser(user);
-						try {
+						try { //loading the home view
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
 							HomeController homeController = new HomeController(stage, model);
 							
@@ -91,9 +98,11 @@ public class LoginController {
 			name.clear();
 			password.clear();
 		});
-		
+
+        //WHen the signup button is pressed
 		signup.setOnAction(event -> {
 			try {
+                //load the sign-up page
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SignupView.fxml"));
 				
 				// Customize controller instance
@@ -103,11 +112,13 @@ public class LoginController {
 				VBox root = loader.load();
 				
 				signupController.showStage(root);
-				
+
+                //clear the fields for this page
 				message.setText("");
 				name.clear();
 				password.clear();
-				
+
+                //close this page
 				stage.close();
 			} catch (IOException e) {
 				message.setText(e.getMessage());

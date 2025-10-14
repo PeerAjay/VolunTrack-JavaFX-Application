@@ -20,19 +20,19 @@ import java.util.ArrayList;
 
 public class SignupController {
     @FXML
-    private TextField fullName;
+    private TextField fullName; //Corresponds to the name field
 	@FXML
-	private TextField username;
+	private TextField username; //Corresponds to the username field
 	@FXML
-	private TextField password;
+	private TextField password; //Corresponds to password field
     @FXML
-    private TextField email;
+    private TextField email; //Corresponds to email field
 	@FXML
-	private Button createUser;
+	private Button createUser;//Corresponds to the create user button
 	@FXML
-	private Button close;
+	private Button close; //Corresponds to the close button
 	@FXML
-	private Label status;
+	private Label status; //Corresponds to the error status label
 	
 	private Stage stage;
 	private Stage parentStage;
@@ -46,14 +46,19 @@ public class SignupController {
 
 	@FXML
 	public void initialize() {
+        //When the create user button is pressed
 		createUser.setOnAction(event -> {
+            //get the list of password errors if any using authentication manager
             List<String> errors = AuthenticationManager.getPasswordErrors(password.getText());
 
+            //Adding some more errors
             errors.addAll(AuthenticationManager.existsCheck(fullName.getText(), email.getText(), username.getText()));
 
+            //If the list is empty there are no errors so create the user
 			if (errors.isEmpty()) {
 				User user;
 				try {
+                    //using userDAO to add the new user to the database
 					user = model.getUserDao().createUser(email.getText(), fullName.getText(), username.getText(), password.getText());
 					if (user != null) {
 						status.setText("Created " + user.getUsername());
@@ -74,6 +79,7 @@ public class SignupController {
 			}
 		});
 
+        //When the close button is pressed go back to the login page
 		close.setOnAction(event -> {
 			stage.close();
 			parentStage.show();

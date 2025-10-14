@@ -10,13 +10,18 @@ import java.util.ArrayList;
 import model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
+//This is a java class that helps with data validation and authentication
+
 public class AuthenticationManager {
 
+    //Check if the password is correct for the given username on login
     public static boolean loginVerify(String username, String passwordPlain){
         UserDao userDao = new UserDaoImpl();
         try {
+            //Hashing the plaintext password to compare it
             String hashedPassword = userDao.getHashedPassword(username);
 
+            //Using bcrypt to compare the hashed password from the database to the hashed input password
             if (hashedPassword != null && BCrypt.checkpw(passwordPlain, hashedPassword)) {
                 return true;
             }
@@ -26,6 +31,7 @@ public class AuthenticationManager {
         return false;
     }
 
+    //Get the errors for data validation on the creationof a password
     public static List<String> getPasswordErrors(final String password) {
         List<String> errors = new ArrayList<>();
 
@@ -48,6 +54,7 @@ public class AuthenticationManager {
         return errors;
     }
 
+    //Overloaded method used for when the password is being changed not created, has some extra checks
     public static List<String> getPasswordErrors(String oldPassword, final String newPassword) {
         List<String> errors = new ArrayList<>();
 
@@ -82,6 +89,7 @@ public class AuthenticationManager {
         return errors;
     }
 
+    //Another data validation check that checks whether the various fields exists
     public static List<String> existsCheck(final String fullName, final String email, final String userName) {
         UserDao userDao = new UserDaoImpl();
         List<String> errors = new ArrayList<>();
@@ -111,11 +119,14 @@ public class AuthenticationManager {
         return errors;
     }
 
+    //Checking if the old password is correct when changin password
     public static boolean correctOldPassword(String password){
+        //using sessionmanager to get the current logged in user
         User user = SessionManager.getInstance().getCurrentUser();
 
         String hashedPasswordFrom = user.getPassword();
 
+        //Using bcrypt to check the password with th hashed password from the current user
         return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 

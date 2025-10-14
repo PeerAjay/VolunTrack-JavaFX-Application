@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao {
 		} 
 	}
 
+    //Fetch a user from the database based on a given username
 	@Override
 	public User getUser(String username) throws SQLException {
 		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE username = ?";
@@ -45,6 +46,7 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+    //Creating a user in the database given email, full name, username and password
 	@Override
 	public User createUser(String email, String fullName, String username, String password) throws SQLException {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); //Hashing the password
@@ -62,6 +64,7 @@ public class UserDaoImpl implements UserDao {
 		} 
 	}
 
+    //Checking if there is already a user with the same username in the database already
     @Override
     public boolean checkUsernameDuplicate(String username) throws SQLException{
         String sql = "SELECT 1 FROM users WHERE username = ? LIMIT 1";
@@ -92,6 +95,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    //Changing the password of a user in the database using the username.
     @Override
     public boolean changePassword(String password, String username) throws SQLException{
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());

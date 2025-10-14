@@ -51,11 +51,14 @@ public class HomeController {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         dayColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
 
+        //Loading the csv data using the loadCSVData helper function
         ObservableList<Project> projects = loadCSVData();
         projectTableView.setItems(projects);
 
+        //On 'change password' button press
         changePassword.setOnAction(event ->{
             try {
+                //Switch to the password change page
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/passwordChange.fxml"));
 
                 // Customize controller instance
@@ -77,10 +80,11 @@ public class HomeController {
     //Function to load each row from the csv into Project objects
     private ObservableList<Project> loadCSVData() {
         ObservableList<Project> projects = FXCollections.observableArrayList();
-        String csvFile = "src/projects.csv";
+        String csvFile = "src/projects.csv"; //setting the file to the projects csv
         String line;
         String cvsSplitBy = ",";
 
+        //reading the csv file
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine(); // Skipping header
             while ((line = br.readLine()) != null) {
@@ -99,6 +103,7 @@ public class HomeController {
         welcomeLabel.setText("Welcome, " + username);
     }
 
+    //showing stage
 	public void showStage(Pane root) {
 		Scene scene = new Scene(root, 600, 300);
 		stage.setScene(scene);

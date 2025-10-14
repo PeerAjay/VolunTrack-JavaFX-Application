@@ -30,11 +30,11 @@ public class passwordChangeController {
     private Stage stage;
     private Stage parentStage;
 
-    @FXML private Button confirmChange;
-    @FXML private Button back;
-    @FXML private TextField oldPassword;
-    @FXML private TextField newPassword;
-    @FXML private Label status;
+    @FXML private Button confirmChange; //corresponds to the confirm button
+    @FXML private Button back; //Corresponds to the back button to go back to the home page
+    @FXML private TextField oldPassword; //Corresponds to the old password field
+    @FXML private TextField newPassword; //Corresponds to the new password field
+    @FXML private Label status; //Corresponds to the error status label
 
     public passwordChangeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -44,15 +44,22 @@ public class passwordChangeController {
 
     @FXML
     public void initialize() {
+        //Get the current user for the session from the sessionManager
         User user = SessionManager.getInstance().getCurrentUser();
 
+        //When the confirm button is pressed
         confirmChange.setOnAction(event ->{
+            //create a list to store all the errors
             List<String> errors = new ArrayList<>();
+            //If there are any errors, add them to the list using authenthication manager
             errors = AuthenticationManager.getPasswordErrors(oldPassword.getText(), newPassword.getText());
 
+            //If the list of errors is empty the input is valid so change the password
             if(errors.isEmpty()){
                 try {
+                    //Using the userdao to change the password in the database
                     model.getUserDao().changePassword(newPassword.getText(), user.getUsername());
+                    //changing the error message to tell the user the password change was successful
                     String errorMessage = "Password Changed!";
                     status.setText(errorMessage);
                     status.setTextFill(Color.GREEN);
@@ -62,6 +69,7 @@ public class passwordChangeController {
                 }
             }
             else{
+                //If there are errors in the list, display them on the error label
                 String errorMessage = String.join("\n", errors);
                 status.setText(errorMessage);
                 status.setTextFill(Color.RED);
@@ -69,25 +77,11 @@ public class passwordChangeController {
 
         });
 
-        //TO DO: IMPLEMENT LATER
-//        back.setOnAction(event ->{
-//
-//            try {
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
-//                // Customize controller instance
-//                HomeController homeController =  new homeController(stage, model);
-//
-//                loader.setController(homeController);
-//                VBox root = loader.load();
-//
-//                homeController.showStage(root);
-//
-//                stage.close();
-//            } catch (IOException e) {
-//                System.out.println("home change error");
-//            }
-//
-//        });
+        //go back to the home page when the back button is pressed
+        back.setOnAction(event ->{
+            stage.close();
+            parentStage.show();
+        });
 
     }
 

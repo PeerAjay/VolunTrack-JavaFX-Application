@@ -77,6 +77,7 @@ public class LoginController {
 
                             homeController.setUsername(user.getUsername());
 
+                            message.setText("");
 							stage.close();
 						}catch (IOException e) {
 							message.setText(e.getMessage());

@@ -1,15 +1,15 @@
 package model;
 
-public class Cart {
+public class CartItem {
     private int cartID;
     private String username;
     private int projectID;
     private int numSlots;
     private int hoursPerSlot;
 
-    public Cart(){};
+    public CartItem(){};
 
-    public Cart(int cartID, String username, int projectID, int numSlots, int hoursPerSlot){
+    public CartItem(int cartID, String username, int projectID, int numSlots, int hoursPerSlot){
         this.cartID = cartID;
         this.username = username;
         this.projectID = projectID;

@@ -32,6 +32,7 @@ public class HomeController {
 	@FXML private MenuItem changePassword;
     @FXML private Button logout;// // Corresponds to the Menu item "logout" in HomeView.fxml
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
+    @FXML private Button viewCart; //Corresponds to the "viewCart" button in HomeView.fxml
 
     //These link the fields from the project object to the columns in the table view
     @FXML private TableView<Project> projectTableView;
@@ -79,11 +80,30 @@ public class HomeController {
         });
 
         logout.setOnAction(event ->{
-            System.out.println("Logout action");
             SessionManager.getInstance().clearSession();
             stage.close();
             parentStage.show();
 
+        });
+
+        //When the viewCart button is pressed go to the cart menu
+        viewCart.setOnAction(Event -> {
+            try {
+                //Switch to the view Cart page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CartView.fxml"));
+
+                // Customize controller instance
+                CartController cartController =  new CartController(stage, model);
+
+                loader.setController(cartController);
+                VBox root = loader.load();
+
+                cartController.showStage(root);
+
+                stage.close();
+            } catch (IOException e) {
+                System.out.println("Viewcart Error");
+            }
         });
 
     }

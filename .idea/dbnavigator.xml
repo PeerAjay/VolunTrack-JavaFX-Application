@@ -42,6 +42,7 @@ ALTER TABLE projects RENAME COLUMN "PROJECT TITLE" TO title]]></console>
     <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.projects" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.sqlite_sequence" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.users_old" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="dff56441-aa28-429e-a194-2957d13c6726" dataset="main.cart_items" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

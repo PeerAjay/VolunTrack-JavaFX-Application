@@ -47,6 +47,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
 
             //Interating through each result set and creating a project model and adding it to the output list
             while (rs.next()) {
+                int projectId = rs.getInt("projectID");
                 String title = rs.getString("title");
                 String location = rs.getString("location");
                 String day = rs.getString("day");
@@ -54,7 +55,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
                 String regSlots = rs.getString("regSlots");
                 String totalSlots = rs.getString("totalSlots");
 
-                Project project = new Project(title, location, day, hourlyValue, regSlots, totalSlots);
+                Project project = new Project(projectId, title, location, day, hourlyValue, regSlots, totalSlots);
                 projects.add(project);
             }
         } catch (SQLException e) {

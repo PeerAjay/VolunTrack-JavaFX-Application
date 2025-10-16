@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class Project {
     //Initialize properties directly
+    private final IntegerProperty projectId = new SimpleIntegerProperty();
     private final StringProperty title = new SimpleStringProperty();
     private final StringProperty location = new SimpleStringProperty();
     private final StringProperty day = new SimpleStringProperty();
@@ -15,7 +16,8 @@ public class Project {
     private final StringProperty totalSlots = new SimpleStringProperty();
 
     //Constructor for the plain data types
-    public Project(String title, String location, String day, String hourlyValue, String regSlots, String totalSlots) {
+    public Project(int projectId, String title, String location, String day, String hourlyValue, String regSlots, String totalSlots) {
+        setProjectId(projectId);
         setTitle(title);
         setLocation(location);
         setDay(day);
@@ -25,6 +27,9 @@ public class Project {
     }
 
     //Normal Getters and Setters
+    public int getProjectId() { return projectId.get(); }
+    public void setProjectId(int value) { projectId.set(value); }
+
     public String getTitle() { return title.get(); }
     public void setTitle(String value) { title.set(value); }
 

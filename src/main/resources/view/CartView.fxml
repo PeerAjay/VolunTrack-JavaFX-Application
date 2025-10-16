@@ -69,6 +69,7 @@
                             <PropertyValueFactory property="hoursPerSlot" />
                         </cellValueFactory>
                     </TableColumn>
+                    <TableColumn fx:id="modify" text="Modify" prefWidth="120" />
                 </columns>
             </TableView>
 

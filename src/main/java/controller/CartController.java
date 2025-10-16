@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.CartEntry;
 import model.Model;
 import model.Project;
@@ -31,6 +32,7 @@ public class CartController {
     private Stage stage;
     private Stage parentStage;
     @FXML private Button backToHome; //This corresponds to the back to home button
+    @FXML private TableColumn<CartEntry, Void> modify;
 
     @FXML  private TableView<CartEntry> cartTableView; //This corresponds to the cart table
 
@@ -44,6 +46,71 @@ public class CartController {
     public void initialize() throws SQLException {
         ObservableList<CartEntry> cartEntries = loadCartData(); //Get the cart items
         cartTableView.setItems(cartEntries); //Load the items onto the table
+
+
+
+
+        //Using callback to add a button to the button column, basically a blueprint telling tableview what  to add in the cells in that column
+        Callback<TableColumn<CartEntry, Void>, TableCell<CartEntry, Void>> cellFactory = new Callback<>() {
+
+            //Method that iss called by callback each time it needs to make a new cell
+            @Override
+            public TableCell<CartEntry, Void> call(final TableColumn<CartEntry, Void> param) {
+                final TableCell<CartEntry, Void> cell = new TableCell<>() {
+
+                    //Adding a button to the cell
+                    private final Button btn = new Button("Modify");
+
+                    {
+                        //When the cell button is pressed
+                        btn.setOnAction(event -> {
+                            // Getting the Project object for the row
+                            //Project project = getTableView().getItems().get(getIndex());
+
+                            try {
+                                //load the sign-up page
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addProjectPopup.fxml"));
+
+                                // Customize controller instance
+                                addProjectPopupController addProjectPopupController =  new addProjectPopupController(stage, model);
+
+                                loader.setController(addProjectPopupController);
+                                VBox root = loader.load();
+
+                                //Call setters in projectpopup controller to set the project and user of the cartItem object
+//                                addProjectPopupController.setUserProject(user.getUsername(), project);
+//
+//                                addProjectPopupController.showStage(root);
+
+                            } catch (IOException e) {
+                                //message.setText(e.getMessage());
+                                System.out.println("AHHHHHHHHHHHHH");
+                            }
+
+                        });
+                    }
+
+                    // This method is called by callback to update the cell's content
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            // If the row is empty, don't show the button
+                            setGraphic(null);
+                        } else {
+                            // If the row is not empty, show the button
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        modify.setCellFactory(cellFactory);
+
+
+
 
         //When the back to home button is pressed go back to home
         backToHome.setOnAction(event ->{

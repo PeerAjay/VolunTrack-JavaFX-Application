@@ -7,16 +7,18 @@ public class CartEntry {
     private int hourlyValue;
     private int numSlots;
     private int hoursPerSlot;
+    private int cartItemID;
 
     public CartEntry(){};
 
-    public CartEntry(String title, String location, String day, int hourlyValue, int numSlots, int hoursPerSlot){
+    public CartEntry(String title, String location, String day, int hourlyValue, int numSlots, int hoursPerSlot, int cartItemID){
         this.title = title;
         this.location = location;
         this.day = day;
         this.hourlyValue = hourlyValue;
         this.numSlots = numSlots;
         this.hoursPerSlot = hoursPerSlot;
+        this.cartItemID = cartItemID;
     }
 
     //Getters and setters
@@ -61,5 +63,13 @@ public class CartEntry {
     public void setHoursPerSlot(int hoursPerSlot){
         this.hoursPerSlot = hoursPerSlot;
     }
+
+    public int getCartItemID() {
+        return cartItemID;
+    }
+    public void setCartItemID() {
+        this.cartItemID = cartItemID;
+    }
+
 
 }

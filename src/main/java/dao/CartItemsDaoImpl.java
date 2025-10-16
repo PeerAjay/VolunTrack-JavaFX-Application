@@ -55,7 +55,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
         ObservableList<CartEntry> cartEntries = FXCollections.observableArrayList();
 
         //Using a join swl query to get values from both the project table and the cart_items table with the same username
-        String sql = "SELECT p.title, p.location, p.day, p.hourlyValue, c.slotsToRegister, c.hoursPerSlot " +
+        String sql = "SELECT p.title, p.location, p.day, p.hourlyValue, c.slotsToRegister, c.hoursPerSlot, c.cartItemID " +
                 "FROM cart_items c " +
                 "JOIN projects p ON c.projectID = p.projectID " +
                 "WHERE c.userID = ?";
@@ -73,9 +73,10 @@ public class CartItemsDaoImpl implements CartItemsDao{
                 int hourlyValue = rs.getInt("hourlyValue");
                 int slotsToRegister = rs.getInt("slotsToRegister");
                 int hoursPerSlot = rs.getInt("hoursPerSlot");
+                int cartId = rs.getInt("cartItemID");
 
                 //Adding to the list of cartEntries to display onto the cart table
-                cartEntries.add(new CartEntry(title, location, day, hourlyValue, slotsToRegister, hoursPerSlot));
+                cartEntries.add(new CartEntry(title, location, day, hourlyValue, slotsToRegister, hoursPerSlot, cartId));
             }
         }
 

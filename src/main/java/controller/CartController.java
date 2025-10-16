@@ -68,6 +68,9 @@ public class CartController {
                             //Project project = getTableView().getItems().get(getIndex());
 
                             try {
+                                //Getting the cartEntry the button being pressed is in
+                                CartEntry selectedEntry = getTableView().getItems().get(getIndex());
+
                                 //load the sign-up page
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyRegistrationView.fxml"));
 
@@ -78,7 +81,7 @@ public class CartController {
                                 VBox root = loader.load();
 
                                 //Set the cart item ID
-                                modifyRegistrationController.setCartItemID();
+                                modifyRegistrationController.setCartItemID(selectedEntry.getCartItemID());
 
                                 modifyRegistrationController.showStage(root);
 

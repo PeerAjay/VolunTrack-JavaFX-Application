@@ -1,7 +1,10 @@
 package dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.CartEntry;
 import model.CartItem;
+import model.Project;
 import model.User;
 
 import java.sql.*;
@@ -46,9 +49,10 @@ public class CartItemsDaoImpl implements CartItemsDao{
             }
     }
 
+    //Function to get all the cartEntries for the current user
     @Override
-    public List<CartEntry> getCartEntries(String username) throws SQLException{
-        List<CartEntry> cartEntries = new ArrayList<>();
+    public ObservableList<CartEntry> getCartEntries(String username) throws SQLException{
+        ObservableList<CartEntry> cartEntries = FXCollections.observableArrayList();
 
         //Using a join swl query to get values from both the project table and the cart_items table with the same username
         String sql = "SELECT p.title, p.location, p.day, p.hourlyValue, c.slotsToRegister, c.hoursPerSlot " +

@@ -78,7 +78,10 @@ public class HomeController {
                             // Getting the Project object for the row
                             Project project = getTableView().getItems().get(getIndex());
 
+
                             // STILL GOTTA ADD LOGIC HERE
+                            //Call setters in projectpopup controller to set the project and user of the cartItem object
+
                         });
                     }
 

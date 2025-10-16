@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.CartItem;
 import model.Model;
+import model.Project;
 import model.User;
 import util.AuthenticationManager;
 
@@ -32,6 +34,8 @@ public class addProjectPopupController {
     private Stage parentStage;
     private Model model;
 
+    private CartItem cartItem = new CartItem();
+
     public addProjectPopupController(){
         this.stage = new Stage();
         this.parentStage = parentStage;
@@ -41,7 +45,12 @@ public class addProjectPopupController {
     @FXML
     public void initialize() {
 
+
     }
 
+    public void setUserProject(String username, Project project){
+        cartItem.setUsername(username);
+        cartItem.setProjectID(project.getProjectId());
+    }
 
 }

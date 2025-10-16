@@ -69,18 +69,18 @@ public class CartController {
 
                             try {
                                 //load the sign-up page
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addProjectPopup.fxml"));
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyRegistrationView.fxml"));
 
                                 // Customize controller instance
-                                addProjectPopupController addProjectPopupController =  new addProjectPopupController(stage, model);
+                                ModifyRegistrationController modifyRegistrationController =  new ModifyRegistrationController(stage, model);
 
-                                loader.setController(addProjectPopupController);
+                                loader.setController(modifyRegistrationController);
                                 VBox root = loader.load();
 
-                                //Call setters in projectpopup controller to set the project and user of the cartItem object
-//                                addProjectPopupController.setUserProject(user.getUsername(), project);
-//
-//                                addProjectPopupController.showStage(root);
+                                //Set the cart item ID
+                                modifyRegistrationController.setCartItemID();
+
+                                modifyRegistrationController.showStage(root);
 
                             } catch (IOException e) {
                                 //message.setText(e.getMessage());

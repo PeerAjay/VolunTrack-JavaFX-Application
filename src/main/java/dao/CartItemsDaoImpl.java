@@ -82,4 +82,20 @@ public class CartItemsDaoImpl implements CartItemsDao{
         return cartEntries;
     }
 
+    public void modifyEntry(int itemID, int newNumSlots, int newHoursPerSlot) throws SQLException{
+
+        String sql = "UPDATE " + TABLE_NAME + " SET slotsToRegister = ?, hoursPerSlot = ? WHERE cartItemID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, newNumSlots);
+            pstmt.setInt(2, newHoursPerSlot);
+            pstmt.setInt(3, itemID);
+
+            pstmt.executeUpdate();
+        }
+
+    }
+
 }

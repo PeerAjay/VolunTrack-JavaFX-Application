@@ -1,9 +1,12 @@
 package dao;
 
+import model.CartEntry;
 import model.CartItem;
 import model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartItemsDaoImpl implements CartItemsDao{
     private String TABLE_NAME = "cart_items";
@@ -41,6 +44,36 @@ public class CartItemsDaoImpl implements CartItemsDao{
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+    }
+
+    @Override
+    public List<CartEntry> getCartEntries(String username) throws SQLException{
+        List<CartEntry> cartEntries = new ArrayList<>();
+
+        String sql = "SELECT p.title, p.location, p.day, p.hourlyValue, c.slotsToRegister, c.hoursPerSlot " +
+                "FROM cart_items c " +
+                "JOIN projects p ON c.projectID = p.projectID " +
+                "WHERE c.userID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String location = rs.getString("location");
+                String day = rs.getString("day");
+                int hourlyValue = rs.getInt("hourlyValue");
+                int slotsToRegister = rs.getInt("slotsToRegister");
+                int hoursPerSlot = rs.getInt("hoursPerSlot");
+
+                cartEntries.add(new CartEntry(title, location, day, hourlyValue, slotsToRegister, hoursPerSlot));
+            }
+        }
+
+        return cartEntries;
     }
 
 }

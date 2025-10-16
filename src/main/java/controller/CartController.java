@@ -32,8 +32,9 @@ public class CartController {
     private Stage stage;
     private Stage parentStage;
     @FXML private Button backToHome; //This corresponds to the back to home button
-    @FXML private TableColumn<CartEntry, Void> modify;
+    @FXML private Button refresh;
 
+    @FXML private TableColumn<CartEntry, Void> modify;
     @FXML  private TableView<CartEntry> cartTableView; //This corresponds to the cart table
 
     public CartController(Stage parentStage, Model model) {
@@ -46,9 +47,6 @@ public class CartController {
     public void initialize() throws SQLException {
         ObservableList<CartEntry> cartEntries = loadCartData(); //Get the cart items
         cartTableView.setItems(cartEntries); //Load the items onto the table
-
-
-
 
         //Using callback to add a button to the button column, basically a blueprint telling tableview what  to add in the cells in that column
         Callback<TableColumn<CartEntry, Void>, TableCell<CartEntry, Void>> cellFactory = new Callback<>() {
@@ -89,7 +87,6 @@ public class CartController {
                                 //message.setText(e.getMessage());
                                 System.out.println("AHHHHHHHHHHHHH");
                             }
-
                         });
                     }
 
@@ -112,7 +109,22 @@ public class CartController {
 
         modify.setCellFactory(cellFactory);
 
+        refresh.setOnAction(event ->{
+            stage.close();
 
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CartView.fxml")); // Make sure this path is correct
+
+                CartController newCartController = new CartController(parentStage, model);
+                loader.setController(newCartController);
+
+                Pane root = loader.load();
+                newCartController.showStage(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 
         //When the back to home button is pressed go back to home
@@ -124,7 +136,7 @@ public class CartController {
     }
 
     //Loading the cart's from the database into a list
-    private ObservableList<CartEntry> loadCartData() throws SQLException {
+    public ObservableList<CartEntry> loadCartData() throws SQLException {
         User user = SessionManager.getInstance().getCurrentUser();
         ObservableList<CartEntry> cartEntries = FXCollections.observableArrayList();
 
@@ -142,4 +154,4 @@ public class CartController {
         stage.show();
     }
 
-} //TO DO CREATE A NEW VIEW FOR THE MODIFY THING BASICALLY CAN JUST COPY EVERYTHING OVER
+}

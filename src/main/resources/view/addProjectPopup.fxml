@@ -17,15 +17,23 @@
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label prefHeight="17.0" prefWidth="250.0" text="Number Of Slots" />
-        <TextField fx:id="numSlotsInput" maxWidth="250.0">
+        <Spinner fx:id="numSlotsSpinner" editable="false" maxWidth="250.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="3" initialValue="1" />
+            </valueFactory>
             <VBox.margin>
                 <Insets bottom="5.0" />
-            </VBox.margin></TextField>
+            </VBox.margin>
+        </Spinner>
         <Label prefHeight="17.0" prefWidth="250.0" text="Number Of Hours Per Slot" />
-        <TextField fx:id="numHoursInput" maxWidth="250.0">
+        <Spinner fx:id="numHoursSpinner" editable="false" maxWidth="250.0">
+            <valueFactory>
+                <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="3" initialValue="1" />
+            </valueFactory>
             <VBox.margin>
                 <Insets bottom="5.0" />
-            </VBox.margin></TextField>
+            </VBox.margin>
+        </Spinner>
         <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
             <children>
                 <Button fx:id="addInputToCart" mnemonicParsing="false" text="Add To Cart" />

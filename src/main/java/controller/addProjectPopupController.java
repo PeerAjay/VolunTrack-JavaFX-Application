@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 
 public class addProjectPopupController {
     @FXML
-    private TextField numSlotsInput; //Corresponds to the number of slots field
+    private Spinner<Integer> numSlotsInput; //Corresponds to the number of slots field
     @FXML
-    private TextField numHoursInput; //Corresponds to the number of hours field
+    private Spinner<Integer> numHoursInput; //Corresponds to the number of hours field
     @FXML
     private Button addInputToCart; //Corresponds to add to cart button
     @FXML
@@ -45,6 +46,11 @@ public class addProjectPopupController {
     @FXML
     public void initialize() {
 
+        addInputToCart.setOnAction(event ->{
+            cartItem.setNumSlots(numSlotsInput.getValue());
+            cartItem.setHoursPerSlot(numHoursInput.getValue());
+
+        });
 
     }
 

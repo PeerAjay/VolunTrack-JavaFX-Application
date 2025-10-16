@@ -1,7 +1,6 @@
 package model;
 
 public class CartItem {
-    private int cartID;
     private String username;
     private int projectID;
     private int numSlots;
@@ -9,8 +8,7 @@ public class CartItem {
 
     public CartItem(){};
 
-    public CartItem(int cartID, String username, int projectID, int numSlots, int hoursPerSlot){
-        this.cartID = cartID;
+    public CartItem(String username, int projectID, int numSlots, int hoursPerSlot){
         this.username = username;
         this.projectID = projectID;
         this.numSlots = numSlots;
@@ -18,9 +16,6 @@ public class CartItem {
     }
 
     //Getters and setters
-    public int getCartID() {
-        return cartID;
-    }
     public String getUsername() {
         return username;
     }
@@ -34,9 +29,6 @@ public class CartItem {
         return hoursPerSlot;
     }
 
-    public void setCartID(int cartID) {
-        this.cartID = cartID;
-    }
     public void setUsername(String username) {
         this.username = username;
     }

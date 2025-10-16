@@ -25,7 +25,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
     }
 
     @Override
-    public boolean addProject(CartItem cartItem) throws SQLException{
+    public void addProject(CartItem cartItem) throws SQLException{
 
         String sql = "INSERT INTO cart_items (userID, projectID, slotsToRegister, hoursPerSlot) VALUES (?, ?, ?, ?)";
 
@@ -38,14 +38,9 @@ public class CartItemsDaoImpl implements CartItemsDao{
                 pstmt.setInt(4, cartItem.getHoursPerSlot());
 
                 pstmt.executeUpdate();
-
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-
-            return false;
-
-            //TO DO COMPLETE THE ADDING OF THE PROJECT TO THE DATABASE TABLE ITS SPAGETTHI CODE
     }
 
 }

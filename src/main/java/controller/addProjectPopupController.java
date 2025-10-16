@@ -3,6 +3,7 @@ package controller;
 import java.awt.*;
 import java.sql.SQLException;
 
+import dao.CartItemsDao;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,9 @@ public class addProjectPopupController {
 
     private CartItem cartItem = new CartItem();
 
+    public addProjectPopupController(){
+    }
+
     public addProjectPopupController(Stage parentStage, Model model){
         this.stage = new Stage();
         this.parentStage = parentStage;
@@ -50,6 +54,19 @@ public class addProjectPopupController {
             cartItem.setNumSlots(numSlotsInput.getValue());
             cartItem.setHoursPerSlot(numHoursInput.getValue());
 
+            try {
+                model.getCartItemsDao().addProject(cartItem);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            //close the stage automatically after adding to cart
+            stage.close();
+        });
+
+        //Close the popup when the cancel button is pressed
+        cancel.setOnAction(event ->{
+            stage.close();
         });
 
     }

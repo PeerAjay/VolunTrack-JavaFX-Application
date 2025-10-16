@@ -2,20 +2,18 @@ package model;
 
 import java.sql.SQLException;
 
-import dao.UserDao;
-import dao.UserDaoImpl;
-
-import dao.ProjectsDao;
-import dao.ProjectsDaoImpl;
+import dao.*;
 
 public class Model {
 	private UserDao userDao;
     private ProjectsDao projectDao;
+    private CartItemsDao cartItemsDao;
 	private User currentUser; 
 	
 	public Model() {
 		userDao = new UserDaoImpl();
         projectDao = new ProjectsDaoImpl();
+        cartItemsDao = new CartItemsDaoImpl();
 	}
 	
 	public void setup() throws SQLException {
@@ -29,6 +27,10 @@ public class Model {
 
     public ProjectsDao getProjectsDao() {
         return projectDao;
+    }
+
+    public CartItemsDao getCartItemsDao() {
+        return cartItemsDao;
     }
 	
 	public User getCurrentUser() {

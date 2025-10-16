@@ -36,7 +36,7 @@ public class addProjectPopupController {
 
     private CartItem cartItem = new CartItem();
 
-    public addProjectPopupController(){
+    public addProjectPopupController(Stage parentStage, Model model){
         this.stage = new Stage();
         this.parentStage = parentStage;
         this.model = model;
@@ -51,6 +51,14 @@ public class addProjectPopupController {
     public void setUserProject(String username, Project project){
         cartItem.setUsername(username);
         cartItem.setProjectID(project.getProjectId());
+    }
+
+    public void showStage(Pane root) {
+        Scene scene = new Scene(root, 500, 500);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Add To Cart");
+        stage.show();
     }
 
 }

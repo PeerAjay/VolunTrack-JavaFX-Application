@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.User;
 import util.AuthenticationManager;
 import util.SessionManager;
 
@@ -57,6 +58,7 @@ public class HomeController {
         //Loading the csv data using the loadCSVData helper function
         ObservableList<Project> projects = loadProjectsfromDB();
         projectTableView.setItems(projects);
+        User user = SessionManager.getInstance().getCurrentUser();
 
         //Making logout menu a label so it can act as a button
         Label logoutLabel = new Label("logout");
@@ -78,9 +80,25 @@ public class HomeController {
                             // Getting the Project object for the row
                             Project project = getTableView().getItems().get(getIndex());
 
+                            try {
+                                //load the sign-up page
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addProjectPopup.fxml"));
 
-                            // STILL GOTTA ADD LOGIC HERE
-                            //Call setters in projectpopup controller to set the project and user of the cartItem object
+                                // Customize controller instance
+                                addProjectPopupController addProjectPopupController =  new addProjectPopupController(stage, model);
+
+                                loader.setController(addProjectPopupController);
+                                VBox root = loader.load();
+
+                                //Call setters in projectpopup controller to set the project and user of the cartItem object
+                                addProjectPopupController.setUserProject(user.getUsername(), project);
+
+                                addProjectPopupController.showStage(root);
+
+                            } catch (IOException e) {
+                                //message.setText(e.getMessage());
+                                System.out.println("AHHHHHHHHHHHHH");
+                            }
 
                         });
                     }
@@ -162,14 +180,14 @@ public class HomeController {
         return projects;
     }
 
-    //Set username function
+    //Set username function sets the welcome label to the username
     public void setUsername(String username) {
         welcomeLabel.setText("Welcome, " + username);
     }
 
     //showing stage
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 600, 300);
+		Scene scene = new Scene(root, 700, 400);
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.setTitle("Home");

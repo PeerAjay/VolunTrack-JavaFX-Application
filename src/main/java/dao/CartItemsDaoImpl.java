@@ -50,6 +50,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
     public List<CartEntry> getCartEntries(String username) throws SQLException{
         List<CartEntry> cartEntries = new ArrayList<>();
 
+        //Using a join swl query to get values from both the project table and the cart_items table with the same username
         String sql = "SELECT p.title, p.location, p.day, p.hourlyValue, c.slotsToRegister, c.hoursPerSlot " +
                 "FROM cart_items c " +
                 "JOIN projects p ON c.projectID = p.projectID " +
@@ -69,6 +70,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
                 int slotsToRegister = rs.getInt("slotsToRegister");
                 int hoursPerSlot = rs.getInt("hoursPerSlot");
 
+                //Adding to the list of cartEntries to display onto the cart table
                 cartEntries.add(new CartEntry(title, location, day, hourlyValue, slotsToRegister, hoursPerSlot));
             }
         }

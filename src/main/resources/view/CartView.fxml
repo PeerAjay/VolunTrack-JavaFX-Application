@@ -57,18 +57,20 @@
                             <PropertyValueFactory property="hourlyValue" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="regSlotsColumn" text="Registered Slots">
+
+                    <TableColumn fx:id="regSlotsColumn" text="Your Registered Slots">
                         <cellValueFactory>
-                            <PropertyValueFactory property="regSlots" />
+                            <PropertyValueFactory property="numSlots" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn fx:id="numHoursColumn" text="Number Of Hours">
+
+                    <TableColumn fx:id="numHoursColumn" text="Your Hours Per Slot">
                         <cellValueFactory>
-                            <PropertyValueFactory property="totalSlots" />
+                            <PropertyValueFactory property="hoursPerSlot" />
                         </cellValueFactory>
                     </TableColumn>
                 </columns>
-        </TableView>
+            </TableView>
 
     </children>
 </VBox>

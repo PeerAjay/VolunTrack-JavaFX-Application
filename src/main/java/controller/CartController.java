@@ -139,4 +139,4 @@ public class CartController {
         stage.show();
     }
 
-}
+} //TO DO CREATE A NEW VIEW FOR THE MODIFY THING BASICALLY CAN JUST COPY EVERYTHING OVER

@@ -32,7 +32,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
             try (Connection conn = Database.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-                pstmt.setInt(1, cartItem.getUsername());
+                pstmt.setString(1, cartItem.getUsername());
                 pstmt.setInt(2, cartItem.getProjectID());
                 pstmt.setInt(3, cartItem.getNumSlots());
                 pstmt.setInt(4, cartItem.getHoursPerSlot());

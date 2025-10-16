@@ -68,6 +68,7 @@
                       <PropertyValueFactory property="totalSlots" />
                   </cellValueFactory>
               </TableColumn>
+              <TableColumn fx:id="addToCart" text="Add To Cart" prefWidth="120" />
           </columns>
       </TableView>
 

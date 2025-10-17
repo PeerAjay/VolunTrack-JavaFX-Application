@@ -21,7 +21,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
              Statement stmt = connection.createStatement();) {
             String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                     " (cartItemID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " userID INTEGER," +
+                    " userID STRING," +
                     " projectID INTEGER," +
                     " slotsToRegister INTEGER," +
                     " hoursPerSlot INTEGER)";

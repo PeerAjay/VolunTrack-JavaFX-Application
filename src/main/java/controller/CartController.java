@@ -8,6 +8,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.CartEntry;
@@ -33,8 +34,10 @@ public class CartController {
     private Stage parentStage;
     @FXML private Button backToHome; //This corresponds to the back to home button
     @FXML private Button refresh;
+    @FXML private Label status;
 
     @FXML private TableColumn<CartEntry, Void> modify;
+    @FXML private TableColumn<CartEntry, Void> delete;
     @FXML  private TableView<CartEntry> cartTableView; //This corresponds to the cart table
 
     public CartController(Stage parentStage, Model model) {
@@ -107,7 +110,52 @@ public class CartController {
             }
         };
 
+        Callback<TableColumn<CartEntry, Void>, TableCell<CartEntry, Void>> deleteCellFactory = new Callback<>() {
+
+            //Method that iss called by callback each time it needs to make a new cell
+            @Override
+            public TableCell<CartEntry, Void> call(final TableColumn<CartEntry, Void> param) {
+                final TableCell<CartEntry, Void> cell = new TableCell<>() {
+
+                    //Adding a button to the cell
+                    private final Button btn = new Button("Delete");
+
+                    {
+                        //When the cell button is pressed
+                        btn.setOnAction(event -> {
+                            CartEntry selectedEntry = getTableView().getItems().get(getIndex());
+
+                            try {
+                                model.getCartItemsDao().deleteItem(selectedEntry.getCartItemID());
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            status.setText("Successfully Deleted, Please refresh");
+                            status.setTextFill(Color.GREEN);
+
+                        });
+                    }
+
+                    // This method is called by callback to update the cell's content
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            // If the row is empty, don't show the button
+                            setGraphic(null);
+                        } else {
+                            // If the row is not empty, show the button
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
         modify.setCellFactory(cellFactory);
+        delete.setCellFactory(deleteCellFactory);
 
         refresh.setOnAction(event ->{
             stage.close();
@@ -147,11 +195,13 @@ public class CartController {
     }
 
     public void showStage(Pane root) {
-        Scene scene = new Scene(root, 600, 300);
+        Scene scene = new Scene(root, 720, 300);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Cart");
         stage.show();
     }
-
+    //---------------------------------------------------------------------------------------------------------------------------
+    // NEXT THING TO DO CHECKOUT CART FUNCTION
+    //---------------------------------------------------------------------------------------------------------------------------
 }

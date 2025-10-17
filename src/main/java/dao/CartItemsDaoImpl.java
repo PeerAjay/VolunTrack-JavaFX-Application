@@ -99,4 +99,17 @@ public class CartItemsDaoImpl implements CartItemsDao{
 
     }
 
+    public void deleteItem(int itemID) throws SQLException{
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE cartItemID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, itemID);
+
+            pstmt.executeUpdate();
+        }
+
+    }
+
 }

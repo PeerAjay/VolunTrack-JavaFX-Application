@@ -35,6 +35,7 @@ public class CartController {
     @FXML private Button backToHome; //This corresponds to the back to home button
     @FXML private Button refresh;
     @FXML private Label status;
+    @FXML private Button checkout;
 
     @FXML private TableColumn<CartEntry, Void> modify;
     @FXML private TableColumn<CartEntry, Void> delete;
@@ -174,6 +175,28 @@ public class CartController {
             }
         });
 
+        checkout.setOnAction(event -> {
+            try {
+                //load the checkout page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/checkoutView.fxml"));
+
+                // Customize controller instance
+                CheckoutController checkoutController =  new CheckoutController(stage, model);
+
+                loader.setController(checkoutController);
+                VBox root = loader.load();
+
+                checkoutController.showStage(root);
+
+                //close this page
+                stage.close();
+            } catch (IOException e) {
+                status.setText(e.getMessage());
+            }
+
+
+        });
+
 
         //When the back to home button is pressed go back to home
         backToHome.setOnAction(event ->{
@@ -201,7 +224,4 @@ public class CartController {
         stage.setTitle("Cart");
         stage.show();
     }
-    //---------------------------------------------------------------------------------------------------------------------------
-    // NEXT THING TO DO CHECKOUT CART FUNCTION
-    //---------------------------------------------------------------------------------------------------------------------------
 }

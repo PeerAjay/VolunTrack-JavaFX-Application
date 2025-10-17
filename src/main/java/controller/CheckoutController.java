@@ -44,7 +44,18 @@ public class CheckoutController {
     public void initialize() {
 
         //When the register user button is pressed
+        register.setOnAction(event->{
+            String conCode = code.getText();
 
+            //If the code isn't a valid 6-digit code give error message and do nothing
+            if (conCode == null || !conCode.matches("\\d{6}")) {
+                status.setText("Please enter a valid 6-digit code");
+            }
+            else{
+                //TODO MAKE THE CODE FOR THE ADDING OF THE PRODUCTS TO REGISTRATION TABLE
+            }
+
+        });
 
         //When the cancel button is pressed go back to the login page
         cancel.setOnAction(event -> {

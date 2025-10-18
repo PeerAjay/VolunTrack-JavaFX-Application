@@ -33,16 +33,16 @@
             </items>
         </ToolBar>
         <Label fx:id="historyTitle" text="Registration History" style="-fx-font-size: 18pt;"  wrapText="true" />
-        <TableView fx:id="projectTableView">
+        <TableView fx:id="registrationHistory">
             <columns>
                 <TableColumn fx:id="registrationIdColumn" text="Registration ID">
                     <cellValueFactory>
-                        <PropertyValueFactory property="registrationId" />
+                        <PropertyValueFactory property="registrationID" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="dateTimeColumn" text="Date And Time">
                     <cellValueFactory>
-                        <PropertyValueFactory property="dateTime" />
+                        <PropertyValueFactory property="timestamp" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="titleColumn" text="Title">
@@ -62,12 +62,12 @@
                 </TableColumn>
                 <TableColumn fx:id="numSlotsColumn" text="Slots Registered">
                     <cellValueFactory>
-                        <PropertyValueFactory property="regSlots" />
+                        <PropertyValueFactory property="slotsRegistered" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="numHoursColumn" text="Hours Registered">
                     <cellValueFactory>
-                        <PropertyValueFactory property="numHours" />
+                        <PropertyValueFactory property="hoursPerSlot" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="totalContributionColumn" text="Total Contribution">

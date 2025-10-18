@@ -35,6 +35,7 @@ public class HomeController {
     @FXML private Button logout;// // Corresponds to the Menu item "logout" in HomeView.fxml
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
     @FXML private Button viewCart; //Corresponds to the "viewCart" button in HomeView.fxml
+    @FXML private Button viewHistory;
 
     //These link the fields from the project object to the columns in the table view
     @FXML private TableView<Project> projectTableView;
@@ -166,6 +167,25 @@ public class HomeController {
                 stage.close();
             } catch (IOException e) {
                 System.out.println("Viewcart Error");
+            }
+        });
+
+        viewHistory.setOnAction(event->{
+            try {
+                //Switch to the view History page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RegistrationHistoryView.fxml"));
+
+                // Customize controller instance
+                RegistrationHistoryController registrationHistoryController =  new RegistrationHistoryController(stage, model);
+
+                loader.setController(registrationHistoryController);
+                VBox root = loader.load();
+
+                registrationHistoryController.showStage(root);
+
+                stage.close();
+            } catch (IOException e) {
+                System.out.println("View History Error");
             }
         });
 

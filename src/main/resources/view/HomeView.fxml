@@ -33,6 +33,9 @@
 
               <Button fx:id="logout" mnemonicParsing="false" text="Logout"/>
               <Button fx:id="viewCart" mnemonicParsing="false" text="View Cart"/>
+              <Button fx:id="viewHistory" mnemonicParsing="false" text="View Registration History"/>
+
+
           </items>
       </ToolBar>
       <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />

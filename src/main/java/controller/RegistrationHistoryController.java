@@ -1,5 +1,6 @@
 package controller;
 
+import dao.RegistrationsDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class RegistrationHistoryController {
 
     @FXML private Button backToHome; //This corresponds to the back to home button
 
-    @FXML  private TableView<RegistrationView> registrationHistory;
+    @FXML private TableView<RegistrationView> registrationHistory;
 
     public RegistrationHistoryController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -42,6 +43,24 @@ public class RegistrationHistoryController {
 
     @FXML
     public void initialize() throws SQLException {
+        ObservableList<RegistrationView> registrations = loadRegistrationsFromDB();
+
+        registrationHistory.setItems(registrations);
+
+        backToHome.setOnAction(event -> {
+            stage.close();
+            parentStage.show();
+        });
+
+    }
+
+    public ObservableList<RegistrationView> loadRegistrationsFromDB() throws SQLException{
+        String username = SessionManager.getInstance().getCurrentUser().getUsername();
+        ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
+
+        registrations = model.getRegistrationsDoa().getRegistrationHistory(username);
+
+        return registrations;
     }
 
     public void showStage(Pane root) {

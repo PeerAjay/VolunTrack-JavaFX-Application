@@ -57,8 +57,8 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
     }
 
     @Override
-    public List<RegistrationView> getRegistrationHistory(String username) throws SQLException{
-        List<RegistrationView> registrations = new ArrayList<>();
+    public ObservableList<RegistrationView> getRegistrationHistory(String username) throws SQLException{
+        ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
 
         String sql = "SELECT r.registrationID, r.slotsRegistered, r.hoursPerSlot, r.totalContribution, r.timestamp, " +
                 "p.title, p.location, p.day " +

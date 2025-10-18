@@ -53,7 +53,13 @@ public class RegistrationHistoryController {
         });
 
         export.setOnAction(event->{
-            export();
+            if(registrationHistory.getItems().isEmpty()){
+                status.setText("No Registrations");
+                status.setTextFill(Color.RED);
+            }
+            else {
+                export();
+            }
         });
 
     }

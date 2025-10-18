@@ -74,10 +74,9 @@ public class CheckoutController {
                         model.getRegistrationsDoa().addCartItems(newRegistration);
                     }
 
-                    model.getCartItemsDao().clearCart(currentUser);
+                    model.getCartItemsDao().clear(username);
 
                     status.setText("Registration successful!");
-                    cartTableView.getItems().clear();
 
                 } catch (SQLException e) {
                     status.setText("Error: Registration failed. Please try again.");

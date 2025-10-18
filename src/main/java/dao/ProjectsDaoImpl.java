@@ -51,7 +51,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
                 String title = rs.getString("title");
                 String location = rs.getString("location");
                 String day = rs.getString("day");
-                String hourlyValue = rs.getString("hourlyValue"); // Assuming you renamed the column
+                int hourlyValue = rs.getInt("hourlyValue"); // Assuming you renamed the column
                 String regSlots = rs.getString("regSlots");
                 String totalSlots = rs.getString("totalSlots");
 

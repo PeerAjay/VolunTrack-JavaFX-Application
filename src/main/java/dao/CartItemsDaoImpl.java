@@ -43,7 +43,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
                 pstmt.setInt(2, cartItem.getProjectID());
                 pstmt.setInt(3, cartItem.getNumSlots());
                 pstmt.setInt(4, cartItem.getHoursPerSlot());
-                pstmt.setInt(6, cartItem.getHourlyValue());
+                pstmt.setInt(5, cartItem.getHourlyValue());
 
                 pstmt.executeUpdate();
             } catch (SQLException e) {
@@ -105,13 +105,25 @@ public class CartItemsDaoImpl implements CartItemsDao{
         String sql = "DELETE FROM " + TABLE_NAME + " WHERE cartItemID = ?";
 
         try (Connection conn = Database.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, itemID);
+            stmt.setInt(1, itemID);
 
-            pstmt.executeUpdate();
+            stmt.executeUpdate();
         }
 
+    }
+
+    public void clear(String username) throws SQLException{
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE userID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            stmt.executeUpdate();
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Registration;
 import model.Project;
+import model.RegistrationView;
 import model.User;
 
 import java.sql.*;
@@ -54,4 +55,41 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
         }
 
     }
+
+    @Override
+    public List<RegistrationView> getRegistrationHistory(String username) throws SQLException{
+        List<RegistrationView> registrations = new ArrayList<>();
+
+        String sql = "SELECT r.registrationID, r.slotsRegistered, r.hoursPerSlot, r.totalContribution, r.timestamp, " +
+                "p.title, p.location, p.day " +
+                "FROM registrations r " +
+                "JOIN projects p ON r.projectID = p.projectID " +
+                "WHERE r.userID = ? " +
+                "ORDER BY r.timestamp DESC";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+            while (rs.next()) {
+                int regId = rs.getInt("registrationID");
+                int slots = rs.getInt("slotsRegistered");
+                int hours = rs.getInt("hoursPerSlot");
+                int contribution = rs.getInt("totalContribution");
+                LocalDateTime timestamp = LocalDateTime.parse(rs.getString("timestamp"), formatter);
+                String title = rs.getString("title");
+                String location = rs.getString("location");
+                String day = rs.getString("day");
+
+                registrations.add(new RegistrationView(regId, slots, hours, contribution, timestamp, title, location, day));
+            }
+        }
+
+        return registrations;
+    }
+
 }

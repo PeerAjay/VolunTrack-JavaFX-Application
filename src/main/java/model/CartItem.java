@@ -5,10 +5,11 @@ public class CartItem {
     private int projectID;
     private int numSlots;
     private int hoursPerSlot;
+    private int hourlyValue;
 
     public CartItem(){};
 
-    public CartItem(String username, int projectID, int numSlots, int hoursPerSlot){
+    public CartItem(String username, int projectID, int numSlots, int hoursPerSlot, int hourlyValue){
         this.username = username;
         this.projectID = projectID;
         this.numSlots = numSlots;
@@ -28,6 +29,9 @@ public class CartItem {
     public int getHoursPerSlot() {
         return hoursPerSlot;
     }
+    public int getHourlyValue() {
+        return hourlyValue;
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -40,6 +44,9 @@ public class CartItem {
     }
     public void setHoursPerSlot(int hoursPerSlot) {
         this.hoursPerSlot = hoursPerSlot;
+    }
+    public void setHourlyValue(int hourlyValue) {
+        this.hourlyValue = hourlyValue;
     }
 
 

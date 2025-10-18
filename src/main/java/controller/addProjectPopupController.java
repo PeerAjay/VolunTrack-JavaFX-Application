@@ -71,9 +71,10 @@ public class addProjectPopupController {
 
     }
 
-    public void setUserProject(String username, Project project){
+    public void setUserProjectValue(String username, Project project){
         cartItem.setUsername(username);
         cartItem.setProjectID(project.getProjectId());
+        cartItem.setHourlyValue(project.getHourlyValue());
     }
 
     public void showStage(Pane root) {

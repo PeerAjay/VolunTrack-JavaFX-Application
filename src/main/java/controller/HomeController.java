@@ -91,7 +91,7 @@ public class HomeController {
                                 VBox root = loader.load();
 
                                 //Call setters in projectpopup controller to set the project and user of the cartItem object
-                                addProjectPopupController.setUserProject(user.getUsername(), project);
+                                addProjectPopupController.setUserProjectValue(user.getUsername(), project);
 
                                 addProjectPopupController.showStage(root);
 

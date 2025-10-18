@@ -24,7 +24,8 @@ public class CartItemsDaoImpl implements CartItemsDao{
                     " userID STRING," +
                     " projectID INTEGER," +
                     " slotsToRegister INTEGER," +
-                    " hoursPerSlot INTEGER)";
+                    " hoursPerSlot INTEGER," +
+                    " hourlyValue INTEGER)";
 
             stmt.executeUpdate(sql);
         }
@@ -33,7 +34,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
     @Override
     public void addProject(CartItem cartItem) throws SQLException{
 
-        String sql = "INSERT INTO cart_items (userID, projectID, slotsToRegister, hoursPerSlot) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO cart_items (userID, projectID, slotsToRegister, hoursPerSlot, hourlyValue) VALUES (?, ?, ?, ?, ?)";
 
             try (Connection conn = Database.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -42,6 +43,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
                 pstmt.setInt(2, cartItem.getProjectID());
                 pstmt.setInt(3, cartItem.getNumSlots());
                 pstmt.setInt(4, cartItem.getHoursPerSlot());
+                pstmt.setInt(6, cartItem.getHourlyValue());
 
                 pstmt.executeUpdate();
             } catch (SQLException e) {

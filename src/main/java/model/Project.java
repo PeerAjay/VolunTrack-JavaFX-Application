@@ -11,12 +11,12 @@ public class Project {
     private final StringProperty title = new SimpleStringProperty();
     private final StringProperty location = new SimpleStringProperty();
     private final StringProperty day = new SimpleStringProperty();
-    private final StringProperty hourlyValue = new SimpleStringProperty();
+    private final IntegerProperty hourlyValue = new SimpleIntegerProperty();
     private final StringProperty regSlots = new SimpleStringProperty();
     private final StringProperty totalSlots = new SimpleStringProperty();
 
     //Constructor for the plain data types
-    public Project(int projectId, String title, String location, String day, String hourlyValue, String regSlots, String totalSlots) {
+    public Project(int projectId, String title, String location, String day, int hourlyValue, String regSlots, String totalSlots) {
         setProjectId(projectId);
         setTitle(title);
         setLocation(location);
@@ -39,8 +39,8 @@ public class Project {
     public String getDay() { return day.get(); }
     public void setDay(String value) { day.set(value); }
 
-    public String getHourlyValue() { return hourlyValue.get(); }
-    public void setHourlyValue(String value) { hourlyValue.set(value); }
+    public int getHourlyValue() { return hourlyValue.get(); }
+    public void setHourlyValue(int value) { hourlyValue.set(value); }
 
     public String getRegSlots() { return regSlots.get(); }
     public void setRegSlots(String value) { regSlots.set(value); }
@@ -53,7 +53,7 @@ public class Project {
     public StringProperty titleProperty() { return title; }
     public StringProperty locationProperty() { return location; }
     public StringProperty dayProperty() { return day; }
-    public StringProperty hourlyValueProperty() { return hourlyValue; }
+    public IntegerProperty hourlyValueProperty() { return hourlyValue; }
     public StringProperty regSlotsProperty() { return regSlots; }
     public StringProperty totalSlotsProperty() { return totalSlots; }
 }

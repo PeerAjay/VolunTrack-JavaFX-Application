@@ -3,6 +3,8 @@ package controller;
 import java.awt.*;
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,10 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Model;
-import model.User;
+import model.*;
 import util.AuthenticationManager;
+import util.SessionManager;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -29,6 +32,8 @@ public class CheckoutController {
     private Label status; //Corresponds to the error status label
     @FXML
     private Label totalContribution; //Corresponds to the total contribution label
+
+    ObservableList<CartItem> itemsToRegister = FXCollections.observableArrayList();
 
     private Stage stage;
     private Stage parentStage;
@@ -52,7 +57,33 @@ public class CheckoutController {
                 status.setText("Please enter a valid 6-digit code");
             }
             else{
-                //TODO MAKE THE CODE FOR THE ADDING OF THE PRODUCTS TO REGISTRATION TABLE
+
+                try {
+                    String username = SessionManager.getInstance().getCurrentUser().getUsername();
+
+                    for (CartItem item : itemsToRegister) {
+                        Registration newRegistration = new Registration(
+                                username,
+                                item.getProjectID(),
+                                item.getNumSlots(),
+                                item.getHoursPerSlot(),
+                                item.getHourlyValue(),
+                                LocalDateTime.now()
+                        );
+
+                        model.getRegistrationsDao().addRegistration(newRegistration);
+                    }
+
+                    model.getCartItemsDao().clearCart(currentUser);
+
+                    status.setText("Registration successful!");
+                    cartTableView.getItems().clear();
+
+                } catch (SQLException e) {
+                    status.setText("Error: Registration failed. Please try again.");
+                    e.printStackTrace();
+                }
+
             }
 
         });
@@ -63,6 +94,13 @@ public class CheckoutController {
             parentStage.show();
         });
     }
+
+    public void setCartEntries(ObservableList<CartItem> items){
+        itemsToRegister = items;
+    }
+
+    //IMPLEMENT THE FUNCTION TO GET TOTAL CONTRIBUTION VALUE
+    //public int getTotalContribution()
 
     public void showStage(Pane root) {
         Scene scene = new Scene(root, 500, 500);

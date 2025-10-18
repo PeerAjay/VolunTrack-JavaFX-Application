@@ -62,6 +62,7 @@ public class CheckoutController {
             //If the code isn't a valid 6-digit code give error message and do nothing
             if (conCode == null || !conCode.matches("\\d{6}")) {
                 status.setText("Please enter a valid 6-digit code");
+                status.setTextFill(Color.RED);
             }
             else{
 
@@ -84,6 +85,7 @@ public class CheckoutController {
                     model.getCartItemsDao().clear(username);
 
                     status.setText("Registration successful!");
+                    status.setTextFill(Color.GREEN);
 
                 } catch (SQLException e) {
                     status.setText("Error: Registration failed. Please try again.");

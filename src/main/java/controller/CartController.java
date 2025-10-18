@@ -176,22 +176,29 @@ public class CartController {
         });
 
         checkout.setOnAction(event -> {
-            try {
-                //load the checkout page
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/checkoutView.fxml"));
 
-                // Customize controller instance
-                CheckoutController checkoutController =  new CheckoutController(stage, model);
+            if(cartEntries.isEmpty()){
+                status.setText("Cart Is Empty");
+                status.setTextFill(Color.RED);
+            }
+            else {
+                try {
+                    //load the checkout page
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/checkoutView.fxml"));
 
-                loader.setController(checkoutController);
-                VBox root = loader.load();
+                    // Customize controller instance
+                    CheckoutController checkoutController = new CheckoutController(stage, model);
 
-                checkoutController.showStage(root);
+                    loader.setController(checkoutController);
+                    VBox root = loader.load();
 
-                //close this page
-                stage.close();
-            } catch (IOException e) {
-                status.setText(e.getMessage());
+                    checkoutController.showStage(root);
+
+                    //close this page
+                    stage.close();
+                } catch (IOException e) {
+                    status.setText(e.getMessage());
+                }
             }
 
 

@@ -37,12 +37,12 @@
             <columns>
                 <TableColumn fx:id="registrationIdColumn" text="Registration ID">
                     <cellValueFactory>
-                        <PropertyValueFactory property="registrationID" />
+                        <PropertyValueFactory property="formattedRegistrationID" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="dateTimeColumn" text="Date And Time">
                     <cellValueFactory>
-                        <PropertyValueFactory property="timestamp" />
+                        <PropertyValueFactory property="formattedTimestamp" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="titleColumn" text="Title">

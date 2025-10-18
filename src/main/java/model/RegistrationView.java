@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RegistrationView {
     private final int registrationID;
@@ -37,5 +38,18 @@ public class RegistrationView {
     public String getTitle() { return title; }
     public String getLocation() { return location; }
     public String getDay() { return day; }
+
+    public String getFormattedTimestamp() {
+        if (timestamp == null) {
+            return "";
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+        return timestamp.format(formatter);
+    }
+
+    public String getFormattedRegistrationID() {
+        return String.format("%04d", this.registrationID);
+    }
 
 }

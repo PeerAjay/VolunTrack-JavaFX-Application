@@ -64,7 +64,7 @@ public class RegistrationHistoryController {
     }
 
     public void showStage(Pane root) {
-        Scene scene = new Scene(root, 720, 300);
+        Scene scene = new Scene(root, 825, 300);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setTitle("Cart");

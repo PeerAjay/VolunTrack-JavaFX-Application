@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+
+<VBox prefHeight="450.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <items>
+                <Button fx:id="backToHome" mnemonicParsing="false" text="Back To Home"/>
+            </items>
+        </ToolBar>
+        <Label fx:id="historyTitle" text="Registration History" style="-fx-font-size: 18pt;"  wrapText="true" />
+        <TableView fx:id="projectTableView">
+            <columns>
+                <TableColumn fx:id="registrationIdColumn" text="Registration ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="registrationId" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="dateTimeColumn" text="Date And Time">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dateTime" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="titleColumn" text="Title">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="title" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="locationColumn" text="Location">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="location" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="dayColumn" text="Day">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="day" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="numSlotsColumn" text="Slots Registered">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="regSlots" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="numHoursColumn" text="Hours Registered">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="numHours" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="totalContributionColumn" text="Total Contribution">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="totalContribution" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+    </children>
+</VBox>

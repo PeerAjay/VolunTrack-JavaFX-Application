@@ -46,7 +46,14 @@ public class CheckoutController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
+        itemsToRegister = setCartItems();
+
+        System.out.println("CONTROLLER: Received " + itemsToRegister.size() + " items from DAO.");
+
+        int overallContribution = getOverallContribution(itemsToRegister);
+
+        totalContribution.setText(String.valueOf(overallContribution));
 
         //When the register user button is pressed
         register.setOnAction(event->{
@@ -92,14 +99,29 @@ public class CheckoutController {
             stage.close();
             parentStage.show();
         });
+
+
     }
 
-    public void setCartEntries(ObservableList<CartItem> items){
-        itemsToRegister = items;
+    public ObservableList<CartItem> setCartItems() throws SQLException {
+        return model.getCartItemsDao().getCartItems(SessionManager.getInstance().getCurrentUser().getUsername());
     }
 
     public int getTotalContribution(CartItem item){
+//        System.out.println("NUMSLOTS: " + item.getNumSlots());
+//        System.out.println("HOURSPERSLOT: " + item.getHoursPerSlot());
+//        System.out.println("HOURLYVALUE: " + item.getHourlyValue());
         return item.getNumSlots() * item.getHoursPerSlot() * item.getHourlyValue();
+    }
+
+    public int getOverallContribution(ObservableList<CartItem> items){
+        int sum = 0;
+
+        for(CartItem item : items){
+            sum += getTotalContribution(item);
+        }
+
+        return sum;
     }
 
     public void showStage(Pane root) {

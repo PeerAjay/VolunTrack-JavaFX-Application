@@ -14,6 +14,7 @@ public class CartItem {
         this.projectID = projectID;
         this.numSlots = numSlots;
         this.hoursPerSlot = hoursPerSlot;
+        this.hourlyValue = hourlyValue;
     }
 
     //Getters and setters

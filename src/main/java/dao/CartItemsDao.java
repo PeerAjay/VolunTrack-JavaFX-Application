@@ -16,4 +16,5 @@ public interface CartItemsDao {
     void modifyEntry(int itemID, int newNumSlots, int newHoursPerSlot) throws SQLException;
     void deleteItem(int itemID) throws SQLException;
     void clear(String username) throws SQLException;
+    ObservableList<CartItem> getCartItems(String username) throws SQLException;
 }

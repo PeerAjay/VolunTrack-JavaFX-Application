@@ -126,4 +126,32 @@ public class CartItemsDaoImpl implements CartItemsDao{
         }
     }
 
+    public ObservableList<CartItem> getCartItems(String username) throws SQLException{
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE userID = ?";
+        ObservableList<CartItem> cartItems = FXCollections.observableArrayList();
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.println("DAO: Querying cart for user: " + username);
+
+            while (rs.next()) {
+                String usernameId = rs.getString("userID");
+                int projectID = rs.getInt("projectID");
+                int numSlots = rs.getInt("slotsToRegister");
+                int hoursPerSlot = rs.getInt("hoursPerSlot");
+                int hourlyValue = rs.getInt("hourlyValue");
+
+                cartItems.add(new CartItem(usernameId, projectID, numSlots, hoursPerSlot, hourlyValue));
+            }
+
+        }
+
+        return cartItems;
+    }
+
 }

@@ -50,7 +50,7 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
             stmt.setInt(5, registration.getTotalContribution());
             stmt.setString(6, LocalDateTime.now().format(formatter));
 
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate();
         }
 
     }

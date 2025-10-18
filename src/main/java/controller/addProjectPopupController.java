@@ -55,6 +55,7 @@ public class addProjectPopupController {
             cartItem.setHoursPerSlot(numHoursInput.getValue());
 
             try {
+                //System.out.println("ADDED ITEM HOURLY VALUE: " + cartItem.getHourlyValue());
                 model.getCartItemsDao().addProject(cartItem);
             } catch (SQLException e) {
                 throw new RuntimeException(e);

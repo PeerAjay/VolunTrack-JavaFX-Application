@@ -36,6 +36,7 @@
             <children>
                 <Label fx:id="historyTitle" text="Registration History" style="-fx-font-size: 18pt;"  wrapText="true" />
                 <Button fx:id="export" mnemonicParsing="false" text="Export" style="-fx-background-color: blue; -fx-text-fill: white; -fx-font-size: 10pt;"/>
+                <Label fx:id="status" style="-fx-font-size: 15pt;"/>
             </children>
         </HBox>
 

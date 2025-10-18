@@ -16,9 +16,7 @@ import model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,6 +31,7 @@ public class RegistrationHistoryController {
 
     @FXML private Button backToHome; //This corresponds to the back to home button
     @FXML private Button export; //This corresponds to the export button
+    @FXML private Label status; //This corresponds to the status label
 
     @FXML private TableView<RegistrationView> registrationHistory;
 
@@ -53,6 +52,10 @@ public class RegistrationHistoryController {
             parentStage.show();
         });
 
+        export.setOnAction(event->{
+            export();
+        });
+
     }
 
     public ObservableList<RegistrationView> loadRegistrationsFromDB() throws SQLException{
@@ -70,6 +73,43 @@ public class RegistrationHistoryController {
         stage.setResizable(true);
         stage.setTitle("Cart");
         stage.show();
+    }
+
+    //export helper method formats and write all the registrations for the user to a file using filewriter
+    public void export(){
+        String username = SessionManager.getInstance().getCurrentUser().getUsername();
+        String filename = "history_" + username + ".txt"; //Setting the name of the file
+
+        try {
+            List<RegistrationView> history = registrationHistory.getItems(); //getting a list of the registrations for the filewriter
+
+            //Create a new filewriter and print out each field in a formatted way
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+                writer.println(username + "'s Participation History");
+                writer.println("==============================================");
+
+                for (RegistrationView entry : history) {
+                    writer.println("Registration ID: " + entry.getFormattedRegistrationID());
+                    writer.println("Date and Time: " + entry.getFormattedTimestamp());
+                    writer.println("Project Title: " + entry.getTitle());
+                    writer.println("Location: " + entry.getLocation());
+                    writer.println("Day: " + entry.getDay());
+                    writer.println("Slots Registered: " + entry.getSlotsRegistered());
+                    writer.println("Hours Per Slot: " + entry.getHoursPerSlot());
+                    writer.println("Total Contribution Value: " + entry.getTotalContribution());
+                    writer.println("----------------------------------------------");
+                }
+            }
+
+            status.setText("Successfully Exported!");
+            status.setTextFill(Color.GREEN);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            status.setText("Export error");
+            status.setTextFill(Color.RED);
+        }
+
     }
 
 }

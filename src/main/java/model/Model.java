@@ -8,12 +8,14 @@ public class Model {
 	private UserDao userDao;
     private ProjectsDao projectDao;
     private CartItemsDao cartItemsDao;
+    private RegistrationsDAO registrationsDAO;
 	private User currentUser; 
 	
 	public Model() {
 		userDao = new UserDaoImpl();
         projectDao = new ProjectsDaoImpl();
         cartItemsDao = new CartItemsDaoImpl();
+        registrationsDAO = new RegistrationsDAOImpl();
 	}
 	
 	public void setup() throws SQLException {
@@ -31,6 +33,10 @@ public class Model {
 
     public CartItemsDao getCartItemsDao() {
         return cartItemsDao;
+    }
+
+    public RegistrationsDAO getRegistrationsDoa() {
+        return registrationsDAO;
     }
 	
 	public User getCurrentUser() {

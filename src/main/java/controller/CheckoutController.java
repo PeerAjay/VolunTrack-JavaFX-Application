@@ -67,11 +67,11 @@ public class CheckoutController {
                                 item.getProjectID(),
                                 item.getNumSlots(),
                                 item.getHoursPerSlot(),
-                                item.getHourlyValue(),
+                                getTotalContribution(item),
                                 LocalDateTime.now()
                         );
 
-                        model.getRegistrationsDao().addRegistration(newRegistration);
+                        model.getRegistrationsDoa().addCartItems(newRegistration);
                     }
 
                     model.getCartItemsDao().clearCart(currentUser);
@@ -99,8 +99,9 @@ public class CheckoutController {
         itemsToRegister = items;
     }
 
-    //IMPLEMENT THE FUNCTION TO GET TOTAL CONTRIBUTION VALUE
-    //public int getTotalContribution()
+    public int getTotalContribution(CartItem item){
+        return item.getNumSlots() * item.getHoursPerSlot() * item.getHourlyValue();
+    }
 
     public void showStage(Pane root) {
         Scene scene = new Scene(root, 500, 500);

@@ -32,6 +32,7 @@ public class RegistrationHistoryController {
     private Stage parentStage;
 
     @FXML private Button backToHome; //This corresponds to the back to home button
+    @FXML private Button export; //This corresponds to the export button
 
     @FXML private TableView<RegistrationView> registrationHistory;
 

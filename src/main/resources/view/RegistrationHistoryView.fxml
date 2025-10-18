@@ -32,7 +32,13 @@
                 <Button fx:id="backToHome" mnemonicParsing="false" text="Back To Home"/>
             </items>
         </ToolBar>
-        <Label fx:id="historyTitle" text="Registration History" style="-fx-font-size: 18pt;"  wrapText="true" />
+        <HBox  alignment="CENTER_LEFT" spacing="15" >
+            <children>
+                <Label fx:id="historyTitle" text="Registration History" style="-fx-font-size: 18pt;"  wrapText="true" />
+                <Button fx:id="export" mnemonicParsing="false" text="Export" style="-fx-background-color: blue; -fx-text-fill: white; -fx-font-size: 10pt;"/>
+            </children>
+        </HBox>
+
         <TableView fx:id="registrationHistory">
             <columns>
                 <TableColumn fx:id="registrationIdColumn" text="Registration ID">

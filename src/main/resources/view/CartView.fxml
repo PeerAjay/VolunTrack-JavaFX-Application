@@ -37,8 +37,8 @@
             <HBox alignment="CENTER_LEFT" spacing="15">
                 <children>
                     <Label fx:id="cartTitle" text="Project Cart" style="-fx-font-size: 18pt;"  wrapText="true" />
-                    <Button fx:id="refresh" mnemonicParsing="false" text="Refresh"/>
-                    <Button fx:id="checkout" mnemonicParsing="false" text="Checkout" style="-fx-background-color: green; -fx-text-fill: white"/>
+                    <Button fx:id="refresh" mnemonicParsing="false" text="Refresh" style="-fx-font-size: 10pt;"/>
+                    <Button fx:id="checkout" mnemonicParsing="false" text="Checkout" style="-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 10pt;"/>
                     <Label fx:id="status" style="-fx-font-size: 18pt;"  wrapText="true" />
                 </children>
             </HBox>

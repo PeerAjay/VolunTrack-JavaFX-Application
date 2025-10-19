@@ -42,6 +42,7 @@ public class AdminHomeController {
     @FXML private ListView<String> projectTitlesListView;
     @FXML private TableView<Project> projectDetailsTableView;
     @FXML private TableColumn<Project, Void> enableDisable;
+    @FXML private TableColumn<Project, Void> modify;
 
     @FXML private Button logout;
     @FXML private Button allRegistrations;
@@ -133,9 +134,63 @@ public class AdminHomeController {
                     };
                     return cell;
                 }
+
+            };
+
+            Callback<TableColumn<Project, Void>, TableCell<Project, Void>> modifyCellFactory = new Callback<>() {
+
+                //Method that iss called by callback each time it needs to make a new cell
+                @Override
+                public TableCell<Project, Void> call(final TableColumn<Project, Void> param) {
+                    final TableCell<Project, Void> cell = new TableCell<>() {
+
+                        //Adding a button to the cell
+                        private final Button btn = new Button("Modify");
+
+                        {
+                            //When the cell button is pressed
+                            btn.setOnAction(event -> {
+                                try {
+                                    Project project = getTableView().getItems().get(getIndex());
+
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyProjectView.fxml"));
+                                    ModifyProjectController modifyProjectController = new ModifyProjectController(stage, model);
+
+                                    modifyProjectController.setProject(project);
+
+                                    loader.setController(modifyProjectController);
+                                    VBox root = loader.load();
+
+                                    modifyProjectController.showStage(root);
+
+                                    stage.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            });
+                        }
+
+                        // This method is called by callback to update the cell's content
+                        @Override
+                        public void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                // If the row is empty, don't show the button
+                                setGraphic(null);
+                            } else {
+                                // If the row is not empty, show the button
+                                setGraphic(btn);
+                            }
+                        }
+                    };
+                    return cell;
+                }
+
             };
 
             enableDisable.setCellFactory(cellFactory);
+            modify.setCellFactory(modifyCellFactory);
 
         } catch (SQLException e) {
             e.printStackTrace();

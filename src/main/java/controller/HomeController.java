@@ -8,6 +8,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Model;
@@ -19,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.User;
@@ -34,6 +36,7 @@ public class HomeController {
 	@FXML private MenuItem changePassword;
     @FXML private Button logout;// // Corresponds to the Menu item "logout" in HomeView.fxml
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
+    @FXML private Label status; // // Corresponds to the Menu item "status" in HomeView.fxml
     @FXML private Button viewCart; //Corresponds to the "viewCart" button in HomeView.fxml
     @FXML private Button viewHistory;
 
@@ -80,6 +83,15 @@ public class HomeController {
                         btn.setOnAction(event -> {
                             // Getting the Project object for the row
                             Project project = getTableView().getItems().get(getIndex());
+
+                            int todayDay = LocalDate.now().getDayOfWeek().getValue();
+                            int projectDay = getDayValue(project.getDay());
+
+                            if (projectDay < todayDay){
+                                status.setText("Project has passed");
+                                status.setTextFill(Color.RED);
+                                return;
+                            }
 
                             try {
                                 //load the sign-up page
@@ -203,6 +215,20 @@ public class HomeController {
     //Set username function sets the welcome label to the username
     public void setUsername(String username) {
         welcomeLabel.setText("Welcome, " + username);
+    }
+
+    //Convert the string value of the day into an int so it's easy to compare
+    private int getDayValue(String day) {
+        switch (day.toLowerCase()) {
+            case "mon": return 1;
+            case "tue": return 2;
+            case "wed": return 3;
+            case "thu": return 4;
+            case "fri": return 5;
+            case "sat": return 6;
+            case "sun": return 7;
+            default: return 0; // Should not happen with valid data
+        }
     }
 
     //showing stage

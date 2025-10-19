@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -177,10 +178,19 @@ public class CartController {
 
         checkout.setOnAction(event -> {
 
+
+//            int todayDay = LocalDate.now().getDayOfWeek().getValue();
+//            int projectDay = getDayValue(selectedEntry.getDay());
+
             if(cartEntries.isEmpty()){
                 status.setText("Cart Is Empty");
                 status.setTextFill(Color.RED);
             }
+//            else if (projectDay < todayDay){
+//                status.setText("Project has passed");
+//                status.setTextFill(Color.RED);
+//                return;
+//            }
             else {
                 try {
                     //load the checkout page
@@ -222,6 +232,20 @@ public class CartController {
 
         return cartEntries;
 
+    }
+
+    //Convert the string value of the day into an int so it's easy to compare
+    private int getDayValue(String day) {
+        switch (day.toLowerCase()) {
+            case "mon": return 1;
+            case "tue": return 2;
+            case "wed": return 3;
+            case "thu": return 4;
+            case "fri": return 5;
+            case "sat": return 6;
+            case "sun": return 7;
+            default: return 0; // Should not happen with valid data
+        }
     }
 
     public void showStage(Pane root) {

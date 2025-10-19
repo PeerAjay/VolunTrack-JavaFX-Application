@@ -20,6 +20,7 @@
 
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.layout.HBox?>
 <VBox prefHeight="450.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
   <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
@@ -35,10 +36,12 @@
               <Button fx:id="viewCart" mnemonicParsing="false" text="View Cart"/>
               <Button fx:id="viewHistory" mnemonicParsing="false" text="View Registration History"/>
 
-
           </items>
       </ToolBar>
-      <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />
+      <HBox alignment="CENTER_LEFT" spacing="15">
+          <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />
+          <Label fx:id="status" style="-fx-font-size: 15pt;"  wrapText="true" />
+      </HBox>
       <TableView fx:id="projectTableView">
           <columns>
               <TableColumn fx:id="titleColumn" text="Project Title">

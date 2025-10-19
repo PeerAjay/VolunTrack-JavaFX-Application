@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
 
     <left>
@@ -20,11 +21,35 @@
     <center>
         <TableView fx:id="projectDetailsTableView">
             <columns>
-                <TableColumn fx:id="locationColumn" text="Location" prefWidth="150"/>
-                <TableColumn fx:id="dayColumn" text="Day" prefWidth="100"/>
-                <TableColumn fx:id="hourlyValueColumn" text="Hourly Value" prefWidth="100"/>
-                <TableColumn fx:id="regSlotsColumn" text="Registered Slots" prefWidth="120"/>
-                <TableColumn fx:id="totalSlotsColumn" text="Total Slots" prefWidth="100"/>
+                <TableColumn fx:id="locationColumn" text="Location" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="location" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="dayColumn" text="Day" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="day" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="hourlyValueColumn" text="Hourly Value" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="hourlyValue" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="regSlotsColumn" text="Registered Slots" prefWidth="120">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="regSlots" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="totalSlotsColumn" text="Total Slots" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="totalSlots" />
+                    </cellValueFactory>
+                </TableColumn>
             </columns>
         </TableView>
     </center>

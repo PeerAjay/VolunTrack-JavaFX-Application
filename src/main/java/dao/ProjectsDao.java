@@ -13,8 +13,10 @@ import java.util.stream.Collectors;
 public interface ProjectsDao {
     void setup() throws SQLException;
     ObservableList<Project> loadProjects() throws SQLException;
+    ObservableList<Project> loadProjectsAdmin() throws SQLException;
     void changeSlots(Registration registration) throws SQLException;
     Map<String, List<Project>> getGroupedProjects() throws SQLException;
     void enableDisableProject(int projectId, String isEnabled) throws SQLException;
+
 
 }

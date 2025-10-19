@@ -70,6 +70,41 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return projects;
     }
 
+    //Function to get all the projects from the database
+    @Override
+    public ObservableList<Project> loadProjectsAdmin() throws SQLException{
+        ObservableList<model.Project> projects = FXCollections.observableArrayList();
+
+        //Select all from the projects table
+        String sql = "SELECT * FROM projects";
+
+
+        try (Connection conn = Database.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            //Interating through each result set and creating a project model and adding it to the output list
+            while (rs.next()) {
+                int projectId = rs.getInt("projectID");
+                String title = rs.getString("title");
+                String location = rs.getString("location");
+                String day = rs.getString("day");
+                int hourlyValue = rs.getInt("hourlyValue"); // Assuming you renamed the column
+                String regSlots = rs.getString("regSlots");
+                String totalSlots = rs.getString("totalSlots");
+                String isEnabled = rs.getString("isEnabled");
+
+                Project project = new Project(projectId, title, location, day, hourlyValue, regSlots, totalSlots, isEnabled);
+                projects.add(project);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching projects from database: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return projects;
+    }
+
     @Override
     public void changeSlots(Registration registration) throws SQLException{
         String getSql = "SELECT regSlots, totalSlots FROM projects WHERE projectID = ?";
@@ -117,7 +152,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
 
     @Override
     public Map<String, List<Project>> getGroupedProjects() throws SQLException {
-        List<Project> allProjects = loadProjects();
+        List<Project> allProjects = loadProjectsAdmin();
 
         Map<String, List<Project>> groupedProjects = allProjects.stream().collect(Collectors.groupingBy(Project::getTitle));
 

@@ -41,8 +41,9 @@ public class AdminHomeController {
 
     @FXML private ListView<String> projectTitlesListView;
     @FXML private TableView<Project> projectDetailsTableView;
-
     @FXML private TableColumn<Project, Void> enableDisable;
+
+    @FXML private Button logout;
 
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -137,6 +138,13 @@ public class AdminHomeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        logout.setOnAction(event ->{
+            SessionManager.getInstance().clearSession();
+            stage.close();
+            parentStage.show();
+        });
+
     }
 
     public void showStage(Pane root) {

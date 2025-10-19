@@ -39,6 +39,7 @@ public class UserDaoImpl implements UserDao {
 					User user = new User();
 					user.setUsername(rs.getString("username"));
 					user.setPassword(rs.getString("password"));
+                    user.setRole(rs.getString("role"));
 					return user;
 				}
 				return null;
@@ -60,7 +61,8 @@ public class UserDaoImpl implements UserDao {
             stmt.setString(4, fullName);
 
 			stmt.executeUpdate();
-			return new User(username, null);
+
+			return new User(username, null, "user");
 		} 
 	}
 

@@ -10,6 +10,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Registration;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import model.Project;
 
 public class ProjectsDaoImpl implements ProjectsDao {
@@ -108,6 +112,15 @@ public class ProjectsDaoImpl implements ProjectsDao {
             throw e;
         }
 
+    }
+
+    @Override
+    public Map<String, List<Project>> getGroupedProjects() throws SQLException {
+        List<Project> allProjects = loadProjects();
+
+        Map<String, List<Project>> groupedProjects = allProjects.stream().collect(Collectors.groupingBy(Project::getTitle));
+
+        return groupedProjects;
     }
 
 }

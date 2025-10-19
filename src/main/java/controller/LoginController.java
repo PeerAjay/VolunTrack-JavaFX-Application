@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -55,7 +56,7 @@ public class LoginController {
                     //Calling the authentication manager to verify the password againts the username
                     valid = AuthenticationManager.loginVerify(name.getText(), password.getText());
 					if (valid) {
-                        //if its valid create a new user for the session and set it as the current user for the session
+                        //if its valid, create a new user for the session and set it as the current user for the session
                         //  using sessionmanager
                         user = model.getUserDao().getUser(name.getText());
                         SessionManager.getInstance().setCurrentUser(user);
@@ -66,20 +67,40 @@ public class LoginController {
                         }
 
 						model.setCurrentUser(user);
-						try { //loading the home view
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
-							HomeController homeController = new HomeController(stage, model);
-							
-							loader.setController(homeController);
-							VBox root = loader.load();
-	
-							homeController.showStage(root);
 
-                            message.setText("");
-							stage.close();
-						}catch (IOException e) {
-							message.setText(e.getMessage());
-						}
+                        if(user.getRole().equals("admin")){
+                            try { //loading the admin home view
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdminHomeView.fxml"));
+                                AdminHomeController adminHomeController = new AdminHomeController(stage, model);
+
+                                loader.setController(adminHomeController);
+                                BorderPane root = loader.load();
+
+                                adminHomeController.showStage(root);
+
+                                message.setText("");
+                                stage.close();
+                            } catch (IOException e) {
+                                message.setText(e.getMessage());
+                            }
+
+                        }
+                        else {
+                            try { //loading the home view
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
+                                HomeController homeController = new HomeController(stage, model);
+
+                                loader.setController(homeController);
+                                VBox root = loader.load();
+
+                                homeController.showStage(root);
+
+                                message.setText("");
+                                stage.close();
+                            } catch (IOException e) {
+                                message.setText(e.getMessage());
+                            }
+                        }
 						
 					} else {
 						message.setText("Wrong username or password");

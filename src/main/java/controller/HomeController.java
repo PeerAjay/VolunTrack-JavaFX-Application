@@ -39,6 +39,7 @@ public class HomeController {
     @FXML private Label status; // // Corresponds to the Menu item "status" in HomeView.fxml
     @FXML private Button viewCart; //Corresponds to the "viewCart" button in HomeView.fxml
     @FXML private Button viewHistory;
+    @FXML private Button refresh;
 
     //These link the fields from the project object to the columns in the table view
     @FXML private TableView<Project> projectTableView;
@@ -64,6 +65,8 @@ public class HomeController {
         projectTableView.setItems(projects);
         User user = SessionManager.getInstance().getCurrentUser();
 
+
+        welcomeLabel.setText("Welcome, " + user.getUsername());
         //Making logout menu a label so it can act as a button
         Label logoutLabel = new Label("logout");
 
@@ -201,6 +204,23 @@ public class HomeController {
             }
         });
 
+        refresh.setOnAction(event->{
+            stage.close();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
+
+                HomeController newHomeController = new HomeController(parentStage, model);
+                loader.setController(newHomeController);
+
+                Pane root = loader.load();
+                newHomeController.showStage(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     //Loading the projects from the DB table
@@ -213,9 +233,9 @@ public class HomeController {
     }
 
     //Set username function sets the welcome label to the username
-    public void setUsername(String username) {
-        welcomeLabel.setText("Welcome, " + username);
-    }
+//    public void setUsername(String username) {
+//        welcomeLabel.setText("Welcome, " + username);
+//    }
 
     //Convert the string value of the day into an int so it's easy to compare
     private int getDayValue(String day) {

@@ -92,7 +92,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
             int newRegSlots = currentRegSlots + registration.getRegSlots();
             int newTotalSlots = currentTotalSlots - registration.getRegSlots();
             if (newRegSlots > currentTotalSlots) {
-                // Not enough slots available, roll back and signal failure
+                // Not enough slots available
                 conn.rollback();
             }
 

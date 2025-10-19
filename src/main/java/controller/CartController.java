@@ -163,7 +163,7 @@ public class CartController {
             stage.close();
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CartView.fxml")); // Make sure this path is correct
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CartView.fxml"));
 
                 CartController newCartController = new CartController(parentStage, model);
                 loader.setController(newCartController);

@@ -40,6 +40,7 @@
       </ToolBar>
       <HBox alignment="CENTER_LEFT" spacing="15">
           <Label fx:id="welcomeLabel" text="Welcome Guest" style="-fx-font-size: 18pt;"  wrapText="true" />
+          <Button fx:id="refresh" mnemonicParsing="false" text="Refresh"/>
           <Label fx:id="status" style="-fx-font-size: 15pt;"  wrapText="true" />
       </HBox>
       <TableView fx:id="projectTableView">

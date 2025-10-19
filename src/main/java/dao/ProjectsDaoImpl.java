@@ -123,4 +123,15 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return groupedProjects;
     }
 
+    @Override
+    public void enableDisableProject(int projectId, String isEnabled) throws SQLException {
+        String sql = "UPDATE projects SET isEnabled = ? WHERE projectID = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, isEnabled);
+            pstmt.setInt(2, projectId);
+            pstmt.executeUpdate();
+        }
+    }
+
 }

@@ -15,5 +15,6 @@ public interface ProjectsDao {
     ObservableList<Project> loadProjects() throws SQLException;
     void changeSlots(Registration registration) throws SQLException;
     Map<String, List<Project>> getGroupedProjects() throws SQLException;
+    void enableDisableProject(int projectId, String isEnabled) throws SQLException;
 
 }

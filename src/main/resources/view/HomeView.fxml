@@ -27,7 +27,6 @@
           <items>
               <MenuButton fx:id="profileMenu" mnemonicParsing="false" text="Profile">
                   <items>
-                      <MenuItem fx:id="viewProfile" mnemonicParsing="false" text="View my profile" />
                       <MenuItem fx:id="changePassword" mnemonicParsing="false" text="Change my password" />
                   </items>
               </MenuButton>

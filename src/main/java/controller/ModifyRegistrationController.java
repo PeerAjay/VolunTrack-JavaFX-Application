@@ -77,7 +77,7 @@ public class ModifyRegistrationController {
         Scene scene = new Scene(root, 500, 500);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Add To Cart");
+        stage.setTitle("Modify Registration");
         stage.show();
     }
 

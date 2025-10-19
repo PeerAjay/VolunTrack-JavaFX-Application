@@ -61,7 +61,7 @@ public class AllRegistrationsController {
     }
 
     public void showStage(Pane root) {
-        Scene scene = new Scene(root, 825, 300);
+        Scene scene = new Scene(root, 925, 300);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setTitle("Cart");

@@ -244,7 +244,7 @@ public class AdminHomeController {
     }
 
     public void showStage(Pane root) {
-        Scene scene = new Scene(root, 780, 400);
+        Scene scene = new Scene(root, 1000, 400);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setTitle("Home");

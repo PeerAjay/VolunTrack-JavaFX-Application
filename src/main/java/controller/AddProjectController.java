@@ -87,7 +87,7 @@ public class AddProjectController {
     }
 
     public void showStage(Pane root) {
-        Scene scene = new Scene(root, 780, 400);
+        Scene scene = new Scene(root, 780, 700);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.setTitle("Create Project");

@@ -45,6 +45,7 @@ public class AdminHomeController {
 
     @FXML private Button logout;
     @FXML private Button allRegistrations;
+    @FXML private Button createProject;
 
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -158,6 +159,25 @@ public class AdminHomeController {
                 System.out.println("View History Error");
             }
 
+        });
+
+        createProject.setOnAction(event->{
+            try {
+                //Switch to the view Create Project page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddProjectView.fxml"));
+
+                // Customize controller instance
+                AddProjectController addProjectController =  new AddProjectController(stage, model);
+
+                loader.setController(addProjectController);
+                VBox root = loader.load();
+
+                addProjectController.showStage(root);
+
+                stage.close();
+            } catch (IOException e) {
+                System.out.println("View History Error");
+            }
         });
 
         logout.setOnAction(event ->{

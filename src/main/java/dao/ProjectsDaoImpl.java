@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.ProjectAdd;
 import model.Registration;
 
 import java.util.List;
@@ -190,6 +191,29 @@ public class ProjectsDaoImpl implements ProjectsDao {
         }
 
         return false;
+    }
+
+    @Override
+    public void addProject(ProjectAdd projectAdd) throws SQLException{
+
+        String sql = "INSERT INTO projects (title, location, day, hourlyValue, regSlots, totalSlots, isEnabled) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, projectAdd.getTitle());
+            stmt.setString(2, projectAdd.getLocation());
+            stmt.setString(3, projectAdd.getDay());
+            stmt.setInt(4, projectAdd.getHourlyValue());
+            stmt.setInt(5, Integer.parseInt(projectAdd.getRegSlots()));
+            stmt.setInt(6, Integer.parseInt(projectAdd.getTotalSlots()));
+            stmt.setString(7, projectAdd.getIsEnabled());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

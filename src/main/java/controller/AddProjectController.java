@@ -55,7 +55,7 @@ public class AddProjectController {
 
             try {
                 errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
-                        Integer.parseInt(hourlyValueField.getText()), Integer.parseInt(totalSlotsField.getText()));
+                        hourlyValueField.getText(), totalSlotsField.getText());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -64,10 +64,34 @@ public class AddProjectController {
                 ProjectAdd addProject = new ProjectAdd(titleField.getText(), locationField.getText(), dayField.getText(),
                         Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
 
-
+                try {
+                    model.getProjectsDao().addProject(addProject);
+                    status.setText("Successfully Added!");
+                    status.setTextFill(Color.GREEN);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else{
+                String errorMessage = String.join("\n", errors);
+                status.setText(errorMessage);
+                status.setTextFill(Color.RED);
             }
 
         });
 
+        back.setOnAction(event->{
+            stage.close();
+            parentStage.show();
+        });
     }
+
+    public void showStage(Pane root) {
+        Scene scene = new Scene(root, 780, 400);
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Home");
+        stage.show();
+    }
+
 }

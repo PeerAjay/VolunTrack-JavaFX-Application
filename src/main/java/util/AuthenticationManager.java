@@ -134,7 +134,7 @@ public class AuthenticationManager {
         return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 
-    public static List<String> validateProgramAddition(String title, String location, String day, int hourlyValue, int totalSlots) throws SQLException {
+    public static List<String> validateProgramAddition(String title, String location, String day, String hourlyValue, String totalSlots) throws SQLException {
         List<String> errors = new ArrayList<>();
 
         if (title == null || title.isBlank()) {
@@ -152,12 +152,18 @@ public class AuthenticationManager {
         if (day == null || day.isBlank() || !checkDay(day)) {
             errors.add("Please enter valid a day (e.g: Wed)");
         }
-        if (hourlyValue < 1 || hourlyValue > 100) {
+
+        if (hourlyValue == null || hourlyValue.isBlank()) {
+            errors.add("Hourly value must be between 0 and 100");
+        } else if ( Integer.parseInt(hourlyValue) < 1 ||  Integer.parseInt(hourlyValue) > 100) {
             errors.add("Hourly value must be between 0 and 100");
         }
-        if (totalSlots < 1 || totalSlots > 100) {
+        if (totalSlots == null || totalSlots.isBlank()) {
             errors.add("Total slots must be between 0 and 100");
+        } else if ( Integer.parseInt(totalSlots) < 1 ||  Integer.parseInt(totalSlots) > 100) {
+            errors.add("Total Slots must be between 0 and 100");
         }
+
         if (location.length() > 30) {
             errors.add("Location too long, must be below 30 characters");
         }
@@ -167,6 +173,7 @@ public class AuthenticationManager {
 
         return errors;
     }
+
 
     public static boolean checkDay(String day){
         if(!day.equals("Mon") && !day.equals("Tue") && !day.equals("Wed") && !day.equals("Thu") && !day.equals("Fri") && !day.equals("Sat") && !day.equals("Sun")){

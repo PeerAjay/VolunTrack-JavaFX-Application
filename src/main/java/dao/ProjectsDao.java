@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javafx.collections.ObservableList;
 import model.Project;
+import model.ProjectAdd;
 import model.Registration;
 
 import java.util.List;
@@ -18,5 +19,6 @@ public interface ProjectsDao {
     Map<String, List<Project>> getGroupedProjects() throws SQLException;
     void enableDisableProject(int projectId, String isEnabled) throws SQLException;
     boolean projectExists(String title, String location, String day) throws SQLException;
+    void addProject(ProjectAdd projectAdd) throws SQLException;
 
 }

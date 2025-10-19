@@ -44,6 +44,7 @@ public class AdminHomeController {
     @FXML private TableColumn<Project, Void> enableDisable;
 
     @FXML private Button logout;
+    @FXML private Button allRegistrations;
 
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -138,6 +139,26 @@ public class AdminHomeController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        allRegistrations.setOnAction(event->{
+            try {
+                //Switch to the view AllRegistrations page
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AllRegistrationsView.fxml"));
+
+                // Customize controller instance
+                AllRegistrationsController allRegistrationsController =  new AllRegistrationsController(stage, model);
+
+                loader.setController(allRegistrationsController);
+                VBox root = loader.load();
+
+                allRegistrationsController.showStage(root);
+
+                stage.close();
+            } catch (IOException e) {
+                System.out.println("View History Error");
+            }
+
+        });
 
         logout.setOnAction(event ->{
             SessionManager.getInstance().clearSession();

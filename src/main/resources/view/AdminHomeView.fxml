@@ -18,6 +18,7 @@
         <ToolBar prefHeight="40.0" prefWidth="200.0">
             <items>
                 <Button fx:id="logout" mnemonicParsing="false" text="Logout"/>
+                <Button fx:id="allRegistrations" mnemonicParsing="false" text="View All Registrations"/>
             </items>
         </ToolBar>
     </top>

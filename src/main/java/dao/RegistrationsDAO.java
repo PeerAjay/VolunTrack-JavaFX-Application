@@ -12,4 +12,5 @@ public interface RegistrationsDAO {
     void setup() throws SQLException;
     void addCartItems(Registration registration) throws SQLException;
     ObservableList<RegistrationView> getRegistrationHistory(String username) throws SQLException;
+    ObservableList<RegistrationView> getRegistrationHistory() throws SQLException;
 }

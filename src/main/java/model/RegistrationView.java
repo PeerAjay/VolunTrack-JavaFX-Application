@@ -17,9 +17,10 @@ public class RegistrationView {
     private final String title;
     private final String location;
     private final String day;
+    private final String username;
 
 
-    public RegistrationView(int registrationID, int slotsRegistered, int hoursPerSlot, double totalContribution, LocalDateTime timestamp, String title, String location, String day) {
+    public RegistrationView(int registrationID, int slotsRegistered, int hoursPerSlot, double totalContribution, LocalDateTime timestamp, String title, String location, String day, String username) {
         this.registrationID = registrationID;
         this.slotsRegistered = slotsRegistered;
         this.hoursPerSlot = hoursPerSlot;
@@ -28,6 +29,7 @@ public class RegistrationView {
         this.title = title;
         this.location = location;
         this.day = day;
+        this.username = username;
     }
 
     public int getRegistrationID() { return registrationID; }
@@ -38,6 +40,7 @@ public class RegistrationView {
     public String getTitle() { return title; }
     public String getLocation() { return location; }
     public String getDay() { return day; }
+    public String getUserId() { return username; }
 
     public String getFormattedTimestamp() {
         if (timestamp == null) {

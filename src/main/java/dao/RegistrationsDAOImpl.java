@@ -60,7 +60,7 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
     public ObservableList<RegistrationView> getRegistrationHistory(String username) throws SQLException{
         ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
 
-        String sql = "SELECT r.registrationID, r.slotsRegistered, r.hoursPerSlot, r.totalContribution, r.timestamp, " +
+        String sql = "SELECT r.registrationID, r.userId, r.slotsRegistered, r.hoursPerSlot, r.totalContribution, r.timestamp, " +
                 "p.title, p.location, p.day " +
                 "FROM registrations r " +
                 "JOIN projects p ON r.projectID = p.projectID " +
@@ -84,8 +84,44 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
                 String title = rs.getString("title");
                 String location = rs.getString("location");
                 String day = rs.getString("day");
+                String usernameID = rs.getString("userId");
 
-                registrations.add(new RegistrationView(regId, slots, hours, contribution, timestamp, title, location, day));
+                registrations.add(new RegistrationView(regId, slots, hours, contribution, timestamp, title, location, day, usernameID));
+            }
+        }
+
+        return registrations;
+    }
+
+    @Override
+    public ObservableList<RegistrationView> getRegistrationHistory() throws SQLException{
+        ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
+
+        String sql = "SELECT r.registrationID, r.userId, r.slotsRegistered, r.hoursPerSlot, r.totalContribution, r.timestamp, " +
+                "p.title, p.location, p.day " +
+                "FROM registrations r " +
+                "JOIN projects p ON r.projectID = p.projectID " +
+                "ORDER BY r.timestamp DESC";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+            while (rs.next()) {
+                int regId = rs.getInt("registrationID");
+                int slots = rs.getInt("slotsRegistered");
+                int hours = rs.getInt("hoursPerSlot");
+                int contribution = rs.getInt("totalContribution");
+                LocalDateTime timestamp = LocalDateTime.parse(rs.getString("timestamp"), formatter);
+                String title = rs.getString("title");
+                String location = rs.getString("location");
+                String day = rs.getString("day");
+                String username = rs.getString("userId");
+
+                registrations.add(new RegistrationView(regId, slots, hours, contribution, timestamp, title, location, day, username));
             }
         }
 

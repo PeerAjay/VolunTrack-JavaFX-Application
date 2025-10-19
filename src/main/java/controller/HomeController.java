@@ -201,6 +201,7 @@ public class HomeController {
                 stage.close();
             } catch (IOException e) {
                 System.out.println("View History Error");
+                e.printStackTrace();
             }
         });
 

@@ -80,6 +80,8 @@ public class CheckoutController {
                         );
 
                         model.getRegistrationsDoa().addCartItems(newRegistration);
+                        model.getProjectsDao().changeSlots(newRegistration);
+
                     }
 
                     model.getCartItemsDao().clear(username);

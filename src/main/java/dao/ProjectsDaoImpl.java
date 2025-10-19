@@ -8,8 +8,7 @@ import java.sql.Statement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.User;
-import org.mindrot.jbcrypt.BCrypt;
+import model.Registration;
 
 import model.Project;
 
@@ -64,6 +63,51 @@ public class ProjectsDaoImpl implements ProjectsDao {
         }
 
         return projects;
+    }
+
+    @Override
+    public void changeSlots(Registration registration) throws SQLException{
+        String getSql = "SELECT regSlots, totalSlots FROM projects WHERE projectID = ?";
+        String changeSql = "UPDATE projects SET regSlots = ?, totalSlots = ? WHERE projectID = ?";
+
+
+        try (Connection conn = Database.getConnection()) {
+            int currentRegSlots;
+            int currentTotalSlots;
+
+            //First, getting what the current values for the registered and total available slots are
+            try (PreparedStatement selectStmt = conn.prepareStatement(getSql)) {
+                selectStmt.setInt(1, registration.getProjectId());
+                ResultSet rs = selectStmt.executeQuery();
+
+                if (rs.next()) {
+                    currentRegSlots = rs.getInt("regSlots");
+                    currentTotalSlots = rs.getInt("totalSlots");
+                } else {
+                    throw new SQLException("Project with ID " + registration.getProjectId() + " not found.");
+                }
+            }
+
+            //Calculate what the new values will be based on the old ones
+            int newRegSlots = currentRegSlots + registration.getRegSlots();
+            int newTotalSlots = currentTotalSlots - registration.getRegSlots();
+            if (newRegSlots > currentTotalSlots) {
+                // Not enough slots available, roll back and signal failure
+                conn.rollback();
+            }
+
+            //Writing the changed values to the database
+            try (PreparedStatement updateStmt = conn.prepareStatement(changeSql)) {
+                updateStmt.setInt(1, newRegSlots);
+                updateStmt.setInt(2, newTotalSlots);
+                updateStmt.setInt(3, registration.getProjectId());
+                updateStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            throw e;
+        }
+
     }
 
 }

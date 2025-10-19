@@ -177,20 +177,25 @@ public class CartController {
         });
 
         checkout.setOnAction(event -> {
+            boolean areValid = true;
+            int todayDay = LocalDate.now().getDayOfWeek().getValue();
 
+            for(CartEntry entry : cartEntries){
+                int projectDay = getDayValue(entry.getDay());
 
-//            int todayDay = LocalDate.now().getDayOfWeek().getValue();
-//            int projectDay = getDayValue(selectedEntry.getDay());
+                if(projectDay < todayDay){
+                    areValid = false;
+                }
+            }
 
             if(cartEntries.isEmpty()){
                 status.setText("Cart Is Empty");
                 status.setTextFill(Color.RED);
             }
-//            else if (projectDay < todayDay){
-//                status.setText("Project has passed");
-//                status.setTextFill(Color.RED);
-//                return;
-//            }
+            else if (!areValid){
+                status.setText("A project has passed, please delete it");
+                status.setTextFill(Color.RED);
+            }
             else {
                 try {
                     //load the checkout page

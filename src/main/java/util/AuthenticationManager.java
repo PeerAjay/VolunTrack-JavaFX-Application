@@ -119,7 +119,7 @@ public class AuthenticationManager {
         return errors;
     }
 
-    //Checking if the old password is correct when changin password
+    //Checking if the old password is correct when changing password
     public static boolean correctOldPassword(String password){
         //using sessionmanager to get the current logged in user
         User user = SessionManager.getInstance().getCurrentUser();
@@ -130,4 +130,12 @@ public class AuthenticationManager {
         return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 
+    public static List<String> validateProgramAddition(String title, String location, String day, int hourlyValue, int totalSlots){
+        List<String> errors = new ArrayList<>();
+
+
+        return errors;
+    }
+
+    //NEED A CHECK DUPLICATE METHOD
 }

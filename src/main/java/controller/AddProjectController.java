@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.ProjectAdd;
 import model.User;
 import util.AuthenticationManager;
 import util.SessionManager;
@@ -59,7 +60,12 @@ public class AddProjectController {
                 throw new RuntimeException(e);
             }
 
+            if(errors.isEmpty()){
+                ProjectAdd addProject = new ProjectAdd(titleField.getText(), locationField.getText(), dayField.getText(),
+                        Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
 
+
+            }
 
         });
 

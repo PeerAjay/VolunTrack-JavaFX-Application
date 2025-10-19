@@ -52,8 +52,12 @@ public class AddProjectController {
         confirmChange.setOnAction(event->{
             List<String> errors = new ArrayList<>();
 
-            errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
-                    Integer.parseInt(hourlyValueField.getText()), Integer.parseInt(totalSlotsField.getText()));
+            try {
+                errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
+                        Integer.parseInt(hourlyValueField.getText()), Integer.parseInt(totalSlotsField.getText()));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
 
 

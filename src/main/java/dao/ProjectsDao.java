@@ -17,6 +17,6 @@ public interface ProjectsDao {
     void changeSlots(Registration registration) throws SQLException;
     Map<String, List<Project>> getGroupedProjects() throws SQLException;
     void enableDisableProject(int projectId, String isEnabled) throws SQLException;
-
+    boolean projectExists(String title, String location, String day) throws SQLException;
 
 }

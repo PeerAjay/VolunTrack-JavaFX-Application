@@ -3,10 +3,14 @@ package util;
 import dao.UserDao;
 import dao.UserDaoImpl;
 
+import dao.ProjectsDao;
+import dao.ProjectsDaoImpl;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import model.Model;
 import model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -130,12 +134,52 @@ public class AuthenticationManager {
         return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 
-    public static List<String> validateProgramAddition(String title, String location, String day, int hourlyValue, int totalSlots){
+    public static List<String> validateProgramAddition(String title, String location, String day, int hourlyValue, int totalSlots) throws SQLException {
         List<String> errors = new ArrayList<>();
 
+        if (title == null || title.isBlank()) {
+            errors.add("Please enter a title");
+        }
+        if (title.length() > 30) {
+            errors.add("Title too long, must be below 30 characters");
+        }
+        if (location == null || location.isBlank()) {
+            errors.add("Please enter a location");
+        }
+        if (location.length() > 30) {
+            errors.add("Location too long, must be below 30 characters");
+        }
+        if (day == null || day.isBlank() || !checkDay(day)) {
+            errors.add("Please enter valid a day (e.g: Wed)");
+        }
+        if (hourlyValue < 1 || hourlyValue > 100) {
+            errors.add("Hourly value must be between 0 and 100");
+        }
+        if (totalSlots < 1 || totalSlots > 100) {
+            errors.add("Total slots must be between 0 and 100");
+        }
+        if (location.length() > 30) {
+            errors.add("Location too long, must be below 30 characters");
+        }
+        if(checkDuplicateProject(title, location, day)){
+            errors.add("Project already exists");
+        }
 
         return errors;
     }
 
-    //NEED A CHECK DUPLICATE METHOD
+    public static boolean checkDay(String day){
+        if(!day.equals("Mon") && !day.equals("Tue") && !day.equals("Wed") && !day.equals("Thu") && !day.equals("Fri") && !day.equals("Sat") && !day.equals("Sun")){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public static boolean checkDuplicateProject(String title, String location, String day) throws SQLException {
+        ProjectsDao projectsDao = new ProjectsDaoImpl();
+
+        return projectsDao.projectExists(title, location, day);
+    }
 }

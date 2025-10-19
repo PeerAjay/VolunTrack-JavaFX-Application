@@ -170,4 +170,26 @@ public class ProjectsDaoImpl implements ProjectsDao {
         }
     }
 
+    @Override
+    public boolean projectExists(String title, String location, String day) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM projects WHERE title = ? AND location = ? AND day = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, title);
+            stmt.setString(2, location);
+            stmt.setString(3, day);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        }
+
+        return false;
+    }
+
 }

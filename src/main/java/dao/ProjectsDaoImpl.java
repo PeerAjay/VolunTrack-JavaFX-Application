@@ -41,7 +41,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         ObservableList<model.Project> projects = FXCollections.observableArrayList();
 
         //Select all from the projects table
-        String sql = "SELECT * FROM projects WHERE isEnabled = true";
+        String sql = "SELECT * FROM projects WHERE isEnabled = 'true'";
 
 
         try (Connection conn = Database.getConnection();
@@ -57,8 +57,9 @@ public class ProjectsDaoImpl implements ProjectsDao {
                 int hourlyValue = rs.getInt("hourlyValue"); // Assuming you renamed the column
                 String regSlots = rs.getString("regSlots");
                 String totalSlots = rs.getString("totalSlots");
+                String isEnabled = rs.getString("isEnabled");
 
-                Project project = new Project(projectId, title, location, day, hourlyValue, regSlots, totalSlots);
+                Project project = new Project(projectId, title, location, day, hourlyValue, regSlots, totalSlots, isEnabled);
                 projects.add(project);
             }
         } catch (SQLException e) {

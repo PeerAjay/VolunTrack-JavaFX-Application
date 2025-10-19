@@ -14,9 +14,10 @@ public class Project {
     private final IntegerProperty hourlyValue = new SimpleIntegerProperty();
     private final StringProperty regSlots = new SimpleStringProperty();
     private final StringProperty totalSlots = new SimpleStringProperty();
+    private String isEnabled;
 
     //Constructor for the plain data types
-    public Project(int projectId, String title, String location, String day, int hourlyValue, String regSlots, String totalSlots) {
+    public Project(int projectId, String title, String location, String day, int hourlyValue, String regSlots, String totalSlots, String isEnabled) {
         setProjectId(projectId);
         setTitle(title);
         setLocation(location);
@@ -24,6 +25,7 @@ public class Project {
         setHourlyValue(hourlyValue);
         setRegSlots(regSlots);
         setTotalSlots(totalSlots);
+        this.isEnabled = isEnabled;
     }
 
     //Normal Getters and Setters
@@ -47,6 +49,9 @@ public class Project {
 
     public String getTotalSlots() { return totalSlots.get(); }
     public void setTotalSlots(String value) { totalSlots.set(value); }
+
+    public String getIsEnabled() { return isEnabled; }
+    public void setIsEnabled(String isEnabled) { this.isEnabled = isEnabled; }
 
 
     //Property Getters

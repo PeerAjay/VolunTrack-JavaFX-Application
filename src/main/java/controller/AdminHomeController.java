@@ -42,6 +42,8 @@ public class AdminHomeController {
     @FXML private ListView<String> projectTitlesListView;
     @FXML private TableView<Project> projectDetailsTableView;
 
+    @FXML private TableColumn<Project, Void> enableDisable;
+
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
         this.parentStage = parentStage;
@@ -65,6 +67,72 @@ public class AdminHomeController {
                         }
                     }
             );
+
+
+            //Using callback to add a button to the button column, basically a blueprint telling tableview what  to add in the cells in that column
+            Callback<TableColumn<Project, Void>, TableCell<Project, Void>> cellFactory = new Callback<>() {
+
+                //Method that iss called by callback each time it needs to make a new cell
+                @Override
+                public TableCell<Project, Void> call(final TableColumn<Project, Void> param) {
+                    final TableCell<Project, Void> cell = new TableCell<>() {
+
+                        //Adding a button to the cell
+                        private final Button btn = new Button();
+
+                        {
+                            //When the cell button is pressed
+                            btn.setOnAction(event -> {
+                                // Getting the Project object for the row
+                                Project project = getTableView().getItems().get(getIndex());
+
+                                String newStatus = "";
+                                if(project.getIsEnabled().equals("true")){
+                                    newStatus = "false";
+                                } else if(project.getIsEnabled().equals("false")) {
+                                    newStatus = "true";
+                                }
+                                else {
+                                    System.out.println("Error");
+                                }
+
+                                try {
+                                    model.getProjectsDao().enableDisableProject(project.getProjectId(), newStatus);
+                                    projectDetailsTableView.getItems().get(getIndex()).setIsEnabled(newStatus);
+                                    projectDetailsTableView.refresh();
+
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+
+                            });
+                        }
+
+                        // This method is called by callback to update the cell's content
+                        @Override
+                        public void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                // If the row is empty, don't show the button
+                                setGraphic(null);
+                            } else {
+                                // If the row is not empty, show the button
+                                Project project = getTableView().getItems().get(getIndex());
+                                // Dynamically set the button text based on the project's status
+                                if (project.getIsEnabled().equals("true")) {
+                                    btn.setText("Disable");
+                                } else {
+                                    btn.setText("Enable");
+                                }
+                                setGraphic(btn);
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            };
+
+            enableDisable.setCellFactory(cellFactory);
 
         } catch (SQLException e) {
             e.printStackTrace();

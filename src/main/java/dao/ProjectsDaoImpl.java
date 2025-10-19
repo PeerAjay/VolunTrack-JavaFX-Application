@@ -41,7 +41,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         ObservableList<model.Project> projects = FXCollections.observableArrayList();
 
         //Select all from the projects table
-        String sql = "SELECT * FROM projects";
+        String sql = "SELECT * FROM projects WHERE isEnabled = true";
 
 
         try (Connection conn = Database.getConnection();

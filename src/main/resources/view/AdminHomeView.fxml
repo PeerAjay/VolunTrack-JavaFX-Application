@@ -50,6 +50,8 @@
                         <PropertyValueFactory property="totalSlots" />
                     </cellValueFactory>
                 </TableColumn>
+                <TableColumn fx:id="enableDisable" text="Disable" prefWidth="120" />
+                <TableColumn fx:id="modify" text="Modify" prefWidth="120" />
             </columns>
         </TableView>
     </center>

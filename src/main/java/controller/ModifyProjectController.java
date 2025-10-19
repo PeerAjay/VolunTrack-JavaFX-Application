@@ -68,12 +68,12 @@ public class ModifyProjectController {
             }
 
             if(errors.isEmpty()){
-//                ProjectAdd addProject = new ProjectAdd(titleField.getText(), locationField.getText(), dayField.getText(),
-//                        Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
+                Project modProject = new Project(modifyProject.getProjectId(), titleField.getText(), locationField.getText(), dayField.getText(),
+                        Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
 
                 try {
-                    model.getProjectsDao().addProject(addProject);
-                    status.setText("Successfully Added!");
+                    model.getProjectsDao().updateProject(modProject);
+                    status.setText("Successfully Updated!");
                     status.setTextFill(Color.GREEN);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);

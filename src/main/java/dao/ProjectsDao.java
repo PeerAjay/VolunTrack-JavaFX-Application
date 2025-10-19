@@ -20,5 +20,6 @@ public interface ProjectsDao {
     void enableDisableProject(int projectId, String isEnabled) throws SQLException;
     boolean projectExists(String title, String location, String day) throws SQLException;
     void addProject(ProjectAdd projectAdd) throws SQLException;
+    void updateProject(Project project) throws SQLException;
 
 }

@@ -216,4 +216,23 @@ public class ProjectsDaoImpl implements ProjectsDao {
 
     }
 
+    @Override
+    public void updateProject(Project project) throws SQLException {
+        String sql = "UPDATE projects SET title = ?, location = ?, day = ?, hourlyValue = ?, totalSlots = ? " +
+                "WHERE projectID = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, project.getTitle());
+            stmt.setString(2, project.getLocation());
+            stmt.setString(3, project.getDay());
+            stmt.setInt(4, project.getHourlyValue());
+            stmt.setInt(5, Integer.parseInt(project.getTotalSlots()));
+            stmt.setInt(6, project.getProjectId());
+
+            stmt.executeUpdate();
+        }
+    }
+
 }

@@ -90,7 +90,7 @@ public class AddProjectController {
         Scene scene = new Scene(root, 780, 400);
         stage.setScene(scene);
         stage.setResizable(true);
-        stage.setTitle("Home");
+        stage.setTitle("Create Project");
         stage.show();
     }
 

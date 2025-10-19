@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+    <left>
+        <ListView fx:id="projectTitlesListView" prefWidth="200"/>
+    </left>
+
+    <center>
+        <TableView fx:id="projectDetailsTableView">
+            <columns>
+                <TableColumn fx:id="locationColumn" text="Location" prefWidth="150"/>
+                <TableColumn fx:id="dayColumn" text="Day" prefWidth="100"/>
+                <TableColumn fx:id="hourlyValueColumn" text="Hourly Value" prefWidth="100"/>
+                <TableColumn fx:id="regSlotsColumn" text="Registered Slots" prefWidth="120"/>
+                <TableColumn fx:id="totalSlotsColumn" text="Total Slots" prefWidth="100"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>

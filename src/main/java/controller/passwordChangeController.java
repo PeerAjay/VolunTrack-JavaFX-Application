@@ -88,7 +88,7 @@ public class passwordChangeController {
     public void showStage(Pane root) {
         Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setTitle("Change Password");
         stage.show();
     }

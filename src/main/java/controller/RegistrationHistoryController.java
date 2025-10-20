@@ -73,14 +73,6 @@ public class RegistrationHistoryController {
         return registrations;
     }
 
-    public void showStage(Pane root) {
-        Scene scene = new Scene(root, 825, 300);
-        stage.setScene(scene);
-        stage.setResizable(true);
-        stage.setTitle("Cart");
-        stage.show();
-    }
-
     //export helper method formats and write all the registrations for the user to a file using filewriter
     public void export(){
         String username = SessionManager.getInstance().getCurrentUser().getUsername();
@@ -116,6 +108,14 @@ public class RegistrationHistoryController {
             status.setTextFill(Color.RED);
         }
 
+    }
+
+    public void showStage(Pane root) {
+        Scene scene = new Scene(root, 825, 300);
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.setTitle("Registration History");
+        stage.show();
     }
 
 }

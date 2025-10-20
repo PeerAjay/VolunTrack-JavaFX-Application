@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ProjectAdd {
-    //Initialize properties directly
     private final StringProperty title = new SimpleStringProperty();
     private final StringProperty location = new SimpleStringProperty();
     private final StringProperty day = new SimpleStringProperty();
@@ -15,7 +14,6 @@ public class ProjectAdd {
     private final StringProperty totalSlots = new SimpleStringProperty();
     private String isEnabled;
 
-    //Constructor for the plain data types
     public ProjectAdd(String title, String location, String day, int hourlyValue, String regSlots, String totalSlots, String isEnabled) {
         setTitle(title);
         setLocation(location);
@@ -48,7 +46,6 @@ public class ProjectAdd {
     public void setIsEnabled(String isEnabled) { this.isEnabled = isEnabled; }
 
 
-    //Property Getters
     public StringProperty titleProperty() { return title; }
     public StringProperty locationProperty() { return location; }
     public StringProperty dayProperty() { return day; }

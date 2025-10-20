@@ -49,7 +49,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            //Interating through each result set and creating a project model and adding it to the output list
+            //Iterating through each result set and creating a project model and adding it to the output list
             while (rs.next()) {
                 int projectId = rs.getInt("projectID");
                 String title = rs.getString("title");
@@ -84,7 +84,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            //Interating through each result set and creating a project model and adding it to the output list
+            //Iterating through each result set and creating a project model and adding it to the output list
             while (rs.next()) {
                 int projectId = rs.getInt("projectID");
                 String title = rs.getString("title");

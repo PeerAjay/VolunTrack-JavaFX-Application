@@ -131,7 +131,7 @@ public class CheckoutController {
     public void showStage(Pane root) {
         Scene scene = new Scene(root, 500, 500);
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setTitle("Checkout");
         stage.show();
     }

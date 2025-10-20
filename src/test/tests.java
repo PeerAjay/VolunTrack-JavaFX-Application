@@ -1,10 +1,16 @@
+import dao.ProjectsDao;
 import dao.UserDao;
+import javafx.collections.ObservableList;
+import model.Project;
+import model.ProjectAdd;
+import model.Registration;
 import model.User;
 import org.junit.jupiter.api.Test;
 import util.AuthenticationManager;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +26,22 @@ public class tests {
         @Override public User createUser(String email, String fullName, String username, String password) throws SQLException { return null; }
         @Override public String getHashedPassword(String username) throws SQLException { return null; }
         @Override public boolean changePassword(String password, String username) throws SQLException { return false; }
+    }
+
+    private static class FakeProjectsDao implements ProjectsDao {
+        @Override
+        public boolean projectExists(String title, String location, String day) {
+            return "Park Cleanup".equals(title) && "Green Park".equals(location) && "Mon".equals(day);
+        }
+
+        @Override public void setup() {}
+        @Override public ObservableList<Project> loadProjects() { return null; }
+        @Override public ObservableList<Project> loadProjectsAdmin() { return null; }
+        @Override public void changeSlots(Registration registration) {}
+        @Override public Map<String, List<Project>> getGroupedProjects() { return null; }
+        @Override public void enableDisableProject(int projectId, String isEnabled) {}
+        @Override public void addProject(ProjectAdd projectAdd) {}
+        @Override public void updateProject(Project project) {}
     }
 
 
@@ -78,6 +100,23 @@ public class tests {
         assertTrue(futureDayValue >= todayDayValue, "Should be valid: can register for a future day (Friday).");
     }
 
+    @Test
+    void testDuplicateProjectCheck() throws SQLException {
+        ProjectsDao mockDao = new FakeProjectsDao();
+
+        List<String> errorsForDuplicate = AuthenticationManager.validateProgramAddition(
+                "Park Cleanup", "Green Park", "Mon", "25", "50", mockDao);
+
+        assertTrue(errorsForDuplicate.contains("Project already exists"),
+                "Should return an error for a duplicate project.");
+
+        List<String> errorsForNewProject = AuthenticationManager.validateProgramAddition(
+                "Food Drive", "Community Hall", "Fri", "30", "40", mockDao);
+
+        assertFalse(errorsForNewProject.contains("Project already exists"),
+                "Should not return a duplicate error for a new project.");
+    }
+
     private int getDayValue(String day) {
         switch (day.toLowerCase()) {
             case "mon": return 1;
@@ -90,6 +129,5 @@ public class tests {
             default: return 0;
         }
     }
-
 
 }

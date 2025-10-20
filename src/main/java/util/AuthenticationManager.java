@@ -134,7 +134,7 @@ public class AuthenticationManager {
         return BCrypt.checkpw(password, hashedPasswordFrom);
     }
 
-    public static List<String> validateProgramAddition(String title, String location, String day, String hourlyValue, String totalSlots) throws SQLException {
+    public static List<String> validateProgramAddition(String title, String location, String day, String hourlyValue, String totalSlots, ProjectsDao projectsDao) throws SQLException {
         List<String> errors = new ArrayList<>();
         Boolean hourlyValueInt = false;
         Boolean totalSlotsInt = false;
@@ -184,7 +184,7 @@ public class AuthenticationManager {
         if (location.length() > 30) {
             errors.add("Location too long, must be below 30 characters");
         }
-        if(checkDuplicateProject(title, location, day)){
+        if(projectsDao.projectExists(title, location, day)){
             errors.add("Project already exists");
         }
 

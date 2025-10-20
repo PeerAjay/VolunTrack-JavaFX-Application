@@ -55,7 +55,7 @@ public class AddProjectController {
 
             try {
                 errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
-                        hourlyValueField.getText(), totalSlotsField.getText());
+                        hourlyValueField.getText(), totalSlotsField.getText(), model.getProjectsDao());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

@@ -94,8 +94,8 @@ public class AuthenticationManager {
     }
 
     //Another data validation check that checks whether the various fields exists
-    public static List<String> existsCheck(final String fullName, final String email, final String userName) {
-        UserDao userDao = new UserDaoImpl();
+    public static List<String> existsCheck(final String fullName, final String email, final String userName, UserDao userDao) {
+        //UserDao userDao = new UserDaoImpl();
         List<String> errors = new ArrayList<>();
 
         if (fullName == null || fullName.isBlank()) {

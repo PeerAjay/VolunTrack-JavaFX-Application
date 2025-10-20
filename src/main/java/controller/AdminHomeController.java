@@ -47,6 +47,7 @@ public class AdminHomeController {
     @FXML private Button logout;
     @FXML private Button allRegistrations;
     @FXML private Button createProject;
+    @FXML private Button refresh;
 
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -239,6 +240,23 @@ public class AdminHomeController {
             SessionManager.getInstance().clearSession();
             stage.close();
             parentStage.show();
+        });
+
+        refresh.setOnAction(event->{
+            stage.close();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdminHomeView.fxml"));
+
+                AdminHomeController newAdminHomeController = new AdminHomeController(parentStage, model);
+                loader.setController(newAdminHomeController);
+
+                Pane root = loader.load();
+                newAdminHomeController.showStage(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
     }

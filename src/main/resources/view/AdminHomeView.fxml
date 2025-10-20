@@ -20,6 +20,7 @@
                 <Button fx:id="logout" mnemonicParsing="false" text="Logout"/>
                 <Button fx:id="allRegistrations" mnemonicParsing="false" text="View All Registrations"/>
                 <Button fx:id="createProject" mnemonicParsing="false" text="Create a Project"/>
+                <Button fx:id="refresh" mnemonicParsing="false" text="Refresh"/>
             </items>
         </ToolBar>
     </top>

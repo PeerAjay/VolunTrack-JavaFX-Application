@@ -136,6 +136,23 @@ public class AuthenticationManager {
 
     public static List<String> validateProgramAddition(String title, String location, String day, String hourlyValue, String totalSlots) throws SQLException {
         List<String> errors = new ArrayList<>();
+        Boolean hourlyValueInt = false;
+        Boolean totalSlotsInt = false;
+
+        try {
+            Integer.parseInt(hourlyValue);
+            hourlyValueInt = true;
+        } catch (NumberFormatException e) {
+            hourlyValueInt =  false;
+        }
+
+        try {
+            Integer.parseInt(totalSlots);
+            totalSlotsInt = true;
+        } catch (NumberFormatException e) {
+            totalSlotsInt =  false;
+        }
+
 
         if (title == null || title.isBlank()) {
             errors.add("Please enter a title");
@@ -153,13 +170,13 @@ public class AuthenticationManager {
             errors.add("Please enter valid a day (e.g: Wed)");
         }
 
-        if (hourlyValue == null || hourlyValue.isBlank()) {
-            errors.add("Hourly value must be between 0 and 100");
+        if (hourlyValue == null || hourlyValue.isBlank() || !hourlyValueInt) {
+            errors.add("Hourly NUMBER must be between 0 and 100");
         } else if ( Integer.parseInt(hourlyValue) < 1 ||  Integer.parseInt(hourlyValue) > 100) {
             errors.add("Hourly value must be between 0 and 100");
         }
-        if (totalSlots == null || totalSlots.isBlank()) {
-            errors.add("Total slots must be between 0 and 100");
+        if (totalSlots == null || totalSlots.isBlank() || !totalSlotsInt) {
+            errors.add("Total slots must be a NUMBER between 0 and 100");
         } else if ( Integer.parseInt(totalSlots) < 1 ||  Integer.parseInt(totalSlots) > 100) {
             errors.add("Total Slots must be between 0 and 100");
         }

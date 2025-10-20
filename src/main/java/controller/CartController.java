@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -168,7 +169,7 @@ public class CartController {
                 CartController newCartController = new CartController(parentStage, model);
                 loader.setController(newCartController);
 
-                Pane root = loader.load();
+                BorderPane root = loader.load();
                 newCartController.showStage(root);
 
             } catch (IOException e) {

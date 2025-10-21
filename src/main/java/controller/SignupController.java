@@ -87,7 +87,7 @@ public class SignupController {
 	}
 	
 	public void showStage(Pane root) {
-		Scene scene = new Scene(root, 500, 500);
+		Scene scene = new Scene(root, 500, 700);
 		stage.setScene(scene);
 		stage.setResizable(true);
 		stage.setTitle("Sign up");

@@ -45,6 +45,7 @@ public class tests {
         @Override public void enableDisableProject(int projectId, String isEnabled) {}
         @Override public void addProject(ProjectAdd projectAdd) {}
         @Override public void updateProject(Project project) {}
+        @Override public int getNumSlotsRemaining(String projectID) throws SQLException {return 0; }
     }
 
 

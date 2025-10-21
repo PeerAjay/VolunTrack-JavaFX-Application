@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -267,7 +268,7 @@ public class AdminHomeController {
                 AdminHomeController newAdminHomeController = new AdminHomeController(parentStage, model);
                 loader.setController(newAdminHomeController);
 
-                Pane root = loader.load();
+                BorderPane root = loader.load();
                 newAdminHomeController.showStage(root);
 
             } catch (IOException e) {

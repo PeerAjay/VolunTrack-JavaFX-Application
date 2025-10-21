@@ -23,20 +23,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class addProjectPopupController {
-    @FXML
-    private Spinner<Integer> numSlotsInput; //Corresponds to the number of slots field
-    @FXML
-    private Spinner<Integer> numHoursInput; //Corresponds to the number of hours field
-    @FXML
-    private Button addInputToCart; //Corresponds to add to cart button
-    @FXML
-    private Button cancel; //Corresponds to the cancel button
-
+    @FXML private Spinner<Integer> numSlotsInput; //Corresponds to the number of slots field
+    @FXML private Spinner<Integer> numHoursInput; //Corresponds to the number of hours field
+    @FXML private Button addInputToCart; //Corresponds to add to cart button
+    @FXML private Button cancel; //Corresponds to the cancel button
+    @FXML private Label status; //Corresponds to the status label
     private Stage stage;
     private Stage parentStage;
     private Model model;
 
     private CartItem cartItem = new CartItem();
+    private Project project;
 
     public addProjectPopupController(){
     }
@@ -53,20 +50,26 @@ public class addProjectPopupController {
         //When the "add to cart" button is pressed
         addInputToCart.setOnAction(event ->{
 
-            //Set the selected number of slots and the selected number of hours of the cartItem
-            //Rest of the cart item fields are set in the helper method
-            cartItem.setNumSlots(numSlotsInput.getValue());
-            cartItem.setHoursPerSlot(numHoursInput.getValue());
-
-            try {
-                //Adding the cartItem to the database
-                model.getCartItemsDao().addProject(cartItem);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if(numSlotsInput.getValue() > Integer.parseInt(project.getTotalSlots())){
+                status.setText("Not enough slots left");
+                status.setTextFill(Color.RED);
             }
+            else{
+                //Set the selected number of slots and the selected number of hours of the cartItem
+                //Rest of the cart item fields are set in the helper method
+                cartItem.setNumSlots(numSlotsInput.getValue());
+                cartItem.setHoursPerSlot(numHoursInput.getValue());
 
-            //close the stage automatically after adding to cart
-            stage.close();
+                try {
+                    //Adding the cartItem to the database
+                    model.getCartItemsDao().addProject(cartItem);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                //close the stage automatically after adding to cart
+                stage.close();
+            }
         });
 
         //Close the popup when the cancel button is pressed
@@ -81,6 +84,8 @@ public class addProjectPopupController {
         cartItem.setUsername(username);
         cartItem.setProjectID(project.getProjectId());
         cartItem.setHourlyValue(project.getHourlyValue());
+
+        this.project = project;;
     }
 
     public void showStage(Pane root) {

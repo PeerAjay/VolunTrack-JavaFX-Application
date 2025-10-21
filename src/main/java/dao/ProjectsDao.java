@@ -21,5 +21,6 @@ public interface ProjectsDao {
     boolean projectExists(String title, String location, String day) throws SQLException;
     void addProject(ProjectAdd projectAdd) throws SQLException;
     void updateProject(Project project) throws SQLException;
+    int getNumSlotsRemaining(String projectID) throws SQLException;
 
 }

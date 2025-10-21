@@ -15,6 +15,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class tests {
+
+    //fake userDAO to mimick userDAO, to ensure unit tests are isolated and im not testing the DAO
     private static class FakeUserDao implements UserDao {
         @Override
         public boolean checkUsernameDuplicate(String username) throws SQLException {
@@ -23,11 +25,12 @@ public class tests {
 
         @Override public void setup() throws SQLException {}
         @Override public User getUser(String username) throws SQLException { return null; }
-        @Override public User createUser(String email, String fullName, String username, String password) throws SQLException { return null; }
+        @Override public User createUser(String email, String fullName, String username, String password, String role) throws SQLException { return null; }
         @Override public String getHashedPassword(String username) throws SQLException { return null; }
         @Override public boolean changePassword(String password, String username) throws SQLException { return false; }
     }
 
+    //fake proejctsDAO to mimick proejctsDAO, to ensure unit tests are isolated and im not testing the DAO
     private static class FakeProjectsDao implements ProjectsDao {
         @Override
         public boolean projectExists(String title, String location, String day) {
@@ -45,6 +48,7 @@ public class tests {
     }
 
 
+    //Test #1, Testing if the password validation works correctly
     @Test
     void testPasswordValidation() {
         assertTrue(AuthenticationManager.getPasswordErrors("ValidPass1@").isEmpty(),
@@ -61,6 +65,7 @@ public class tests {
         assertFalse(AuthenticationManager.getPasswordErrors("NoSpecialChar1").isEmpty());
     }
 
+    //Test #2, Testing if the username uniqueness validation works correctly
     @Test
     void testUsernameUniqueness() {
         UserDao mockDao = new FakeUserDao();
@@ -73,6 +78,7 @@ public class tests {
         assertTrue(errorsForNewUser.isEmpty(), "Should return no errors for a new, valid username.");
     }
 
+    //Test #3, Testing if the confirmation code function and validation works correctly
     @Test
     void testConfirmationCodeValidation() {
         java.util.function.Predicate<String> isValidCode = code -> code != null && code.matches("\\d{6}");
@@ -86,6 +92,7 @@ public class tests {
         assertFalse(isValidCode.test(""), "An empty code should be invalid.");
     }
 
+    //Test #4, Testing if the date restrictions function as intended
     @Test
     void testProjectDateRestriction() {
         int todayDayValue = 3; // THIS IS WEDNESDAY
@@ -100,6 +107,7 @@ public class tests {
         assertTrue(futureDayValue >= todayDayValue, "Should be valid: can register for a future day (Friday).");
     }
 
+    //Test #5, Testing if the check for existing projects when adding one works correctly
     @Test
     void testDuplicateProjectCheck() throws SQLException {
         ProjectsDao mockDao = new FakeProjectsDao();
@@ -117,6 +125,7 @@ public class tests {
                 "Should not return a duplicate error for a new project.");
     }
 
+    //Helper function to help test
     private int getDayValue(String day) {
         switch (day.toLowerCase()) {
             case "mon": return 1;

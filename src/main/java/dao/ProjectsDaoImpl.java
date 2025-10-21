@@ -242,4 +242,24 @@ public class ProjectsDaoImpl implements ProjectsDao {
         }
     }
 
+    //Getting the numSlots remaining for a given project id
+    @Override
+    public int getNumSlotsRemaining(String projectID) throws SQLException {
+        String sql = "SELECT totalSlots FROM projects WHERE projectID = ?";
+        int totalSlots = 0;
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, projectID);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    totalSlots = rs.getInt("totalSlots");
+                }
+            }
+        }
+
+        return totalSlots;
+    }
+
 }

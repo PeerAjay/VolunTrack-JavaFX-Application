@@ -81,17 +81,17 @@ public class CartController {
                                 // Customize controller instance
                                 ModifyRegistrationController modifyRegistrationController =  new ModifyRegistrationController(stage, model);
 
+                                //Set the cart item ID
+                                modifyRegistrationController.setCartEntry(selectedEntry);
+
                                 loader.setController(modifyRegistrationController);
                                 VBox root = loader.load();
-
-                                //Set the cart item ID
-                                modifyRegistrationController.setCartItemID(selectedEntry.getCartItemID());
 
                                 modifyRegistrationController.showStage(root);
 
                             } catch (IOException e) {
                                 //message.setText(e.getMessage());
-                                System.out.println("AHHHHHHHHHHHHH");
+                                e.printStackTrace();
                             }
                         });
                     }
@@ -173,7 +173,7 @@ public class CartController {
                 CartController newCartController = new CartController(parentStage, model);
                 loader.setController(newCartController);
 
-                BorderPane root = loader.load();
+                VBox root = loader.load();
                 newCartController.showStage(root);
 
             } catch (IOException e) {

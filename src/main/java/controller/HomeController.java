@@ -96,6 +96,10 @@ public class HomeController {
                                 status.setText("Project has passed");
                                 status.setTextFill(Color.RED);
                                 return;
+                            } else if(Integer.parseInt(project.getTotalSlots()) == 0) {
+                                status.setText("No more slots remaining");
+                                status.setTextFill(Color.RED);
+                                return;
                             }
 
                             try {

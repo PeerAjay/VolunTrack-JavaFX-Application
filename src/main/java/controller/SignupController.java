@@ -59,7 +59,7 @@ public class SignupController {
 				User user;
 				try {
                     //using userDAO to add the new user to the database
-					user = model.getUserDao().createUser(email.getText(), fullName.getText(), username.getText(), password.getText());
+					user = model.getUserDao().createUser(email.getText(), fullName.getText(), username.getText(), password.getText(), "user");
 					if (user != null) {
 						status.setText("Created " + user.getUsername());
 						status.setTextFill(Color.GREEN);

@@ -13,7 +13,7 @@ import model.User;
 public interface UserDao {
 	void setup() throws SQLException;
 	User getUser(String username) throws SQLException;
-	User createUser(String email, String fullName, String username, String password) throws SQLException;
+	User createUser(String email, String fullName, String username, String password, String role) throws SQLException;
     boolean checkUsernameDuplicate(String username) throws SQLException;
     String getHashedPassword(String username) throws SQLException;
     boolean changePassword(String password, String username) throws SQLException;

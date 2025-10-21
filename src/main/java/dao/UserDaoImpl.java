@@ -49,16 +49,17 @@ public class UserDaoImpl implements UserDao {
 
     //Creating a user in the database given email, full name, username and password
 	@Override
-	public User createUser(String email, String fullName, String username, String password) throws SQLException {
+	public User createUser(String email, String fullName, String username, String password, String role) throws SQLException {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); //Hashing the password
 
-		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO " + TABLE_NAME + " VALUES (?, ?, ?, ?, ?)";
 		try (Connection connection = Database.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql);) {
 			stmt.setString(1, username);
 			stmt.setString(2, hashedPassword);
             stmt.setString(3, email);
             stmt.setString(4, fullName);
+            stmt.setString(5, role);
 
 			stmt.executeUpdate();
 

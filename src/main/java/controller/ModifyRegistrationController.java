@@ -13,30 +13,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.CartItem;
-import model.Model;
-import model.Project;
-import model.User;
+import model.*;
 import util.AuthenticationManager;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class ModifyRegistrationController {
-    @FXML
-    private Spinner<Integer> numSlotsInput; //Corresponds to the number of slots field
-    @FXML
-    private Spinner<Integer> numHoursInput; //Corresponds to the number of hours field
-    @FXML
-    private Button modify; //Corresponds to add to cart button
-    @FXML
-    private Button cancel; //Corresponds to the cancel button
+    @FXML private Spinner<Integer> numSlotsInput; //Corresponds to the number of slots field
+    @FXML private Spinner<Integer> numHoursInput; //Corresponds to the number of hours field
+    @FXML private Button modify; //Corresponds to add to cart button
+    @FXML private Button cancel; //Corresponds to the cancel button
+    @FXML private Label status; //Corresponds to the status label
 
     private Stage stage;
     private Stage parentStage;
     private Model model;
 
-    private int cartItemID;
+    private CartEntry cartEntry;
+    private int slotsRemaining;
+    private int projectID;
+    private int remainingSlots;
 
 
     public ModifyRegistrationController(){
@@ -49,20 +46,29 @@ public class ModifyRegistrationController {
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
+        projectID = cartEntry.getProjectID();
+
+        remainingSlots =  model.getProjectsDao().getNumSlotsRemaining(Integer.toString(projectID));
 
         //When the modify button is pressed
         modify.setOnAction(event ->{
 
-            //Modify the cart item corresponding to the id with the nre values
-            try {
-                model.getCartItemsDao().modifyEntry(cartItemID, numSlotsInput.getValue(), numHoursInput.getValue());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if(numSlotsInput.getValue() > remainingSlots){
+                status.setText("Not enough slots left");
+                status.setTextFill(Color.RED);
             }
+            else {
+                //Modify the cart item corresponding to the id with the nre values
+                try {
+                    model.getCartItemsDao().modifyEntry(cartEntry.getCartItemID(), numSlotsInput.getValue(), numHoursInput.getValue());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
 
-            //close the stage automatically after modify
-            stage.close();
+                //close the stage automatically after modify
+                stage.close();
+            }
         });
 
         //Close the popup when the cancel button is pressed
@@ -73,8 +79,8 @@ public class ModifyRegistrationController {
     }
 
     //Helper method to set the cartId of the item to be modified
-    public void setCartItemID(int cartItemID){
-        this.cartItemID = cartItemID;
+    public void setCartEntry(CartEntry cartItem){
+        this.cartEntry = cartItem;
     }
 
     public void showStage(Pane root) {

@@ -31,6 +31,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
         }
     }
 
+    //Adding a project to the cartItems table
     @Override
     public void addProject(CartItem cartItem) throws SQLException{
 
@@ -85,6 +86,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
         return cartEntries;
     }
 
+    //Modifying a cart entry in the database
     public void modifyEntry(int itemID, int newNumSlots, int newHoursPerSlot) throws SQLException{
 
         String sql = "UPDATE " + TABLE_NAME + " SET slotsToRegister = ?, hoursPerSlot = ? WHERE cartItemID = ?";
@@ -101,6 +103,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
 
     }
 
+    //Deleting an item from the database
     public void deleteItem(int itemID) throws SQLException{
         String sql = "DELETE FROM " + TABLE_NAME + " WHERE cartItemID = ?";
 
@@ -114,6 +117,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
 
     }
 
+    //Clearing the cartitems
     public void clear(String username) throws SQLException{
         String sql = "DELETE FROM " + TABLE_NAME + " WHERE userID = ?";
 
@@ -126,6 +130,7 @@ public class CartItemsDaoImpl implements CartItemsDao{
         }
     }
 
+    //Getting all the cart items and returning them in an observable list
     public ObservableList<CartItem> getCartItems(String username) throws SQLException{
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE userID = ?";
         ObservableList<CartItem> cartItems = FXCollections.observableArrayList();

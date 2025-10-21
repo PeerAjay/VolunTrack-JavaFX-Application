@@ -51,7 +51,10 @@ public class ModifyRegistrationController {
     @FXML
     public void initialize() {
 
+        //When the modify button is pressed
         modify.setOnAction(event ->{
+
+            //Modify the cart item corresponding to the id with the nre values
             try {
                 model.getCartItemsDao().modifyEntry(cartItemID, numSlotsInput.getValue(), numHoursInput.getValue());
             } catch (SQLException e) {
@@ -69,6 +72,7 @@ public class ModifyRegistrationController {
 
     }
 
+    //Helper method to set the cartId of the item to be modified
     public void setCartItemID(int cartItemID){
         this.cartItemID = cartItemID;
     }

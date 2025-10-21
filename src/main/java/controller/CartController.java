@@ -35,12 +35,12 @@ public class CartController {
     private Stage stage;
     private Stage parentStage;
     @FXML private Button backToHome; //This corresponds to the back to home button
-    @FXML private Button refresh;
-    @FXML private Label status;
-    @FXML private Button checkout;
+    @FXML private Button refresh; //This corresponds to the refresh button
+    @FXML private Label status; //This corresponds to the status label
+    @FXML private Button checkout; //This corresponds to the checkout button
 
-    @FXML private TableColumn<CartEntry, Void> modify;
-    @FXML private TableColumn<CartEntry, Void> delete;
+    @FXML private TableColumn<CartEntry, Void> modify; //This corresponds to the modify column for the modify button
+    @FXML private TableColumn<CartEntry, Void> delete; //This corresponds to the delete column for the delete button
     @FXML  private TableView<CartEntry> cartTableView; //This corresponds to the cart table
 
     public CartController(Stage parentStage, Model model) {
@@ -126,8 +126,10 @@ public class CartController {
                     {
                         //When the cell button is pressed
                         btn.setOnAction(event -> {
+                            //Get the selected cart item
                             CartEntry selectedEntry = getTableView().getItems().get(getIndex());
 
+                            //Delete it from the database
                             try {
                                 model.getCartItemsDao().deleteItem(selectedEntry.getCartItemID());
                             } catch (SQLException e) {
@@ -157,9 +159,11 @@ public class CartController {
             }
         };
 
+        //Setting the cell factories of the columns to show the buttons
         modify.setCellFactory(cellFactory);
         delete.setCellFactory(deleteCellFactory);
 
+        //When the refresh button is pressed
         refresh.setOnAction(event ->{
             stage.close();
 
@@ -177,10 +181,12 @@ public class CartController {
             }
         });
 
+        //When the checkout button is pressed
         checkout.setOnAction(event -> {
-            boolean areValid = true;
-            int todayDay = LocalDate.now().getDayOfWeek().getValue();
+            boolean areValid = true; //Boolean value to keep track of which projects are passed the valid date
+            int todayDay = LocalDate.now().getDayOfWeek().getValue(); //getting the day of the week that is today
 
+            //For each cart entry get whether the current day is after the projects day
             for(CartEntry entry : cartEntries){
                 int projectDay = getDayValue(entry.getDay());
 
@@ -189,10 +195,12 @@ public class CartController {
                 }
             }
 
+            //If the cart is empty dont show the form
             if(cartEntries.isEmpty()){
                 status.setText("Cart Is Empty");
                 status.setTextFill(Color.RED);
             }
+            //If there is an invalis item in the cart then dont show the checkout form
             else if (!areValid){
                 status.setText("A project has passed, please delete it");
                 status.setTextFill(Color.RED);

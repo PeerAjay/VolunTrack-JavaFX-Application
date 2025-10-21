@@ -37,17 +37,17 @@ public class AdminHomeController {
     private Stage stage;
     private Stage parentStage;
 
-    private Map<String, List<Project>> groupedProjects;
+    private Map<String, List<Project>> groupedProjects; //A map variable to map the titles of the project to a list of grouped projects
 
-    @FXML private ListView<String> projectTitlesListView;
-    @FXML private TableView<Project> projectDetailsTableView;
-    @FXML private TableColumn<Project, Void> enableDisable;
-    @FXML private TableColumn<Project, Void> modify;
+    @FXML private ListView<String> projectTitlesListView; //This corresponds to the listView on the left of the borderbane
+    @FXML private TableView<Project> projectDetailsTableView; //This corresponds to the tableView showing the actual projects in the middle section of the borderbane
+    @FXML private TableColumn<Project, Void> enableDisable; //This corresponds to the column for the enable/disable buttons for each project
+    @FXML private TableColumn<Project, Void> modify; //This corresponds to the modify column for the modify buttons
 
-    @FXML private Button logout;
-    @FXML private Button allRegistrations;
-    @FXML private Button createProject;
-    @FXML private Button refresh;
+    @FXML private Button logout; //This corressponds to the logout button
+    @FXML private Button allRegistrations; //This corressponds to the " all registrations " button
+    @FXML private Button createProject; //This corressponds to the "create project" button
+    @FXML private Button refresh; //This corressponds to the "refresh" button
 
     public AdminHomeController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -59,13 +59,17 @@ public class AdminHomeController {
     public void initialize() throws SQLException {
 
         try {
+            //Gets the mapped list for the projects from the database with the name string as a key and the projects as values
             groupedProjects = model.getProjectsDao().getGroupedProjects();
 
+            //Get just the titles and put them in an observable list to be displayed
             ObservableList<String> titles = FXCollections.observableArrayList(groupedProjects.keySet());
             projectTitlesListView.setItems(titles);
 
+            //Add a listener to the list view on the left to check if the user selects a title
             projectTitlesListView.getSelectionModel().selectedItemProperty().addListener(
                     (observable, oldSelection, newSelection) -> {
+                        //When a title is selected then get a list of the projects for the title that was selected and set the tableviews items to that
                         if (newSelection != null) {
                             List<Project> projectsForTitle = groupedProjects.get(newSelection);
                             projectDetailsTableView.setItems(FXCollections.observableArrayList(projectsForTitle));
@@ -91,10 +95,13 @@ public class AdminHomeController {
                                 // Getting the Project object for the row
                                 Project project = getTableView().getItems().get(getIndex());
 
+                                //Checks to see if the selected project is enabled already or disabled
                                 String newStatus = "";
                                 if(project.getIsEnabled().equals("true")){
+                                    //If the project is enabled set the new status to disabled
                                     newStatus = "false";
                                 } else if(project.getIsEnabled().equals("false")) {
+                                    //If the project is disabled set the new status to enabled
                                     newStatus = "true";
                                 }
                                 else {
@@ -102,6 +109,7 @@ public class AdminHomeController {
                                 }
 
                                 try {
+                                    //Set the new status in the database and refresh
                                     model.getProjectsDao().enableDisableProject(project.getProjectId(), newStatus);
                                     projectDetailsTableView.getItems().get(getIndex()).setIsEnabled(newStatus);
                                     projectDetailsTableView.refresh();
@@ -138,6 +146,7 @@ public class AdminHomeController {
 
             };
 
+            //Using callback to add a button to the button column, basically a blueprint telling tableview what  to add in the cells in that column
             Callback<TableColumn<Project, Void>, TableCell<Project, Void>> modifyCellFactory = new Callback<>() {
 
                 //Method that iss called by callback each time it needs to make a new cell
@@ -152,8 +161,10 @@ public class AdminHomeController {
                             //When the cell button is pressed
                             btn.setOnAction(event -> {
                                 try {
+                                    //Get the project for the button that was pressed
                                     Project project = getTableView().getItems().get(getIndex());
 
+                                    //Loading the modify project view
                                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModifyProjectView.fxml"));
                                     ModifyProjectController modifyProjectController = new ModifyProjectController(stage, model);
 
@@ -190,6 +201,7 @@ public class AdminHomeController {
 
             };
 
+            //Setting the columns cell factory to show the buttons
             enableDisable.setCellFactory(cellFactory);
             modify.setCellFactory(modifyCellFactory);
 
@@ -197,6 +209,7 @@ public class AdminHomeController {
             e.printStackTrace();
         }
 
+        //When the "view all registrations" button is pressed
         allRegistrations.setOnAction(event->{
             try {
                 //Switch to the view AllRegistrations page
@@ -217,6 +230,7 @@ public class AdminHomeController {
 
         });
 
+        //When the "create a project" button is pressed
         createProject.setOnAction(event->{
             try {
                 //Switch to the view Create Project page
@@ -236,12 +250,14 @@ public class AdminHomeController {
             }
         });
 
+        //Logout button is pressed
         logout.setOnAction(event ->{
             SessionManager.getInstance().clearSession();
             stage.close();
             parentStage.show();
         });
 
+        //When the refresh button is pressed
         refresh.setOnAction(event->{
             stage.close();
 

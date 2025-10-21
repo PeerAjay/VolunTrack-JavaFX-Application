@@ -35,6 +35,7 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
         }
     }
 
+    //Adding the cart item registration into the regisrtation database
     @Override
     public void addCartItems(Registration registration) throws SQLException {
         String sql = "INSERT INTO registrations (userID, projectID, slotsRegistered, hoursPerSlot, totalContribution, timestamp) VALUES (?, ?, ?, ?, ?, ?)";
@@ -56,6 +57,7 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
 
     }
 
+    //Getting the history of registrations for a specific user
     @Override
     public ObservableList<RegistrationView> getRegistrationHistory(String username) throws SQLException{
         ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
@@ -93,6 +95,7 @@ public class RegistrationsDAOImpl implements RegistrationsDAO{
         return registrations;
     }
 
+    //Getting the history of registrations for ALL users for admin viewing
     @Override
     public ObservableList<RegistrationView> getRegistrationHistory() throws SQLException{
         ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();

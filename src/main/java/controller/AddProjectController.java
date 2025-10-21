@@ -50,9 +50,12 @@ public class AddProjectController {
     @FXML
     public void initialize() {
 
+        //When the "confirm change" button is pressed (Confirm change button is the add project button I forgot to change the name)
         confirmChange.setOnAction(event->{
+            //Initialising a list of errors that will hold any validation errors with input
             List<String> errors = new ArrayList<>();
 
+            //Use authentication manager to check the errors in the input and add the error messages to the list if any
             try {
                 errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
                         hourlyValueField.getText(), totalSlotsField.getText(), model.getProjectsDao());
@@ -60,6 +63,7 @@ public class AddProjectController {
                 throw new RuntimeException(e);
             }
 
+            //If the list is empty, authentication manager found no errors so add the project
             if(errors.isEmpty()){
                 ProjectAdd addProject = new ProjectAdd(titleField.getText(), locationField.getText(), dayField.getText(),
                         Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
@@ -80,6 +84,7 @@ public class AddProjectController {
 
         });
 
+        //When the "back" button is pressed go back to the admin home page
         back.setOnAction(event->{
             stage.close();
             parentStage.show();

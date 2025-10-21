@@ -53,11 +53,11 @@ public class LoginController {
 			if (!name.getText().isEmpty() && !password.getText().isEmpty()) {
 				User user;
 				try {
-                    //Calling the authentication manager to verify the password againts the username
+                    //Calling the authentication manager to verify the password against the username
                     valid = AuthenticationManager.loginVerify(name.getText(), password.getText());
 					if (valid) {
                         //if its valid, create a new user for the session and set it as the current user for the session
-                        //  using sessionmanager
+                        //  using sessionmanager to set the current user on login
                         user = model.getUserDao().getUser(name.getText());
                         SessionManager.getInstance().setCurrentUser(user);
 
@@ -68,6 +68,7 @@ public class LoginController {
 
 						model.setCurrentUser(user);
 
+                        //If the role of the user is admin
                         if(user.getRole().equals("admin")){
                             try { //loading the admin home view
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdminHomeView.fxml"));

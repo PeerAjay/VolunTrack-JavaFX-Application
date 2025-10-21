@@ -47,12 +47,12 @@ public class CheckoutController {
 
     @FXML
     public void initialize() throws SQLException {
-        itemsToRegister = setCartItems();
+        itemsToRegister = setCartItems(); //Setting the items that need to be registered
 
-        System.out.println("CONTROLLER: Received " + itemsToRegister.size() + " items from DAO.");
-
+        //Using the helper method to get the overall contribution of all the items being registered
         int overallContribution = getOverallContribution(itemsToRegister);
 
+        //Set the text of the label to the overall contribution
         totalContribution.setText(String.valueOf(overallContribution));
 
         //When the register user button is pressed
@@ -67,8 +67,10 @@ public class CheckoutController {
             else{
 
                 try {
+                    //Get the current user
                     String username = SessionManager.getInstance().getCurrentUser().getUsername();
 
+                    //For each cart item create a new registration object
                     for (CartItem item : itemsToRegister) {
                         Registration newRegistration = new Registration(
                                 username,
@@ -79,11 +81,13 @@ public class CheckoutController {
                                 LocalDateTime.now()
                         );
 
+                        //Add the registration to the database and change the slot values in the projects table
                         model.getRegistrationsDoa().addCartItems(newRegistration);
                         model.getProjectsDao().changeSlots(newRegistration);
 
                     }
 
+                    //Clear the cart in the database
                     model.getCartItemsDao().clear(username);
 
                     status.setText("Registration successful!");
@@ -107,17 +111,17 @@ public class CheckoutController {
 
     }
 
+    //Setting the cart items to be checked out from the database
     public ObservableList<CartItem> setCartItems() throws SQLException {
         return model.getCartItemsDao().getCartItems(SessionManager.getInstance().getCurrentUser().getUsername());
     }
 
+    //Calculating the total contribution fir a single registration
     public int getTotalContribution(CartItem item){
-//        System.out.println("NUMSLOTS: " + item.getNumSlots());
-//        System.out.println("HOURSPERSLOT: " + item.getHoursPerSlot());
-//        System.out.println("HOURLYVALUE: " + item.getHourlyValue());
         return item.getNumSlots() * item.getHoursPerSlot() * item.getHourlyValue();
     }
 
+    //Calculating the overall contribution for all registrations
     public int getOverallContribution(ObservableList<CartItem> items){
         int sum = 0;
 

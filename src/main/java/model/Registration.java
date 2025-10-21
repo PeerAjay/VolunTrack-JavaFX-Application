@@ -8,7 +8,6 @@ import javafx.beans.property.StringProperty;
 import java.time.LocalDateTime;
 
 public class Registration {
-    //private final IntegerProperty registrationID = new SimpleIntegerProperty();
     private final StringProperty userId = new SimpleStringProperty();
     private final IntegerProperty projectId = new SimpleIntegerProperty();
     private final IntegerProperty regSlots = new SimpleIntegerProperty();
@@ -17,7 +16,6 @@ public class Registration {
     private final LocalDateTime timeStamp;
 
     public Registration(String userId, int projectId, int regSlots, int hoursPerSlot, int totalContribution, LocalDateTime timeStamp){
-        //setRegistrationID(registrationID);
         setUserId(userId);
         setProjectId(projectId);
         setRegSlots(regSlots);
@@ -26,12 +24,6 @@ public class Registration {
         this.timeStamp = timeStamp;
     };
 
-//    public int getRegistrationID(){
-//        return registrationID.get();
-//    }
-//    public void setRegistrationID(int value){
-//        registrationID.set(value);
-//    }
 
     public String getUserId(){
         return userId.get();

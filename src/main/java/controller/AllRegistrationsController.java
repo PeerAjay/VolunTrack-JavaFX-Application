@@ -31,7 +31,7 @@ public class AllRegistrationsController {
 
     @FXML private Button backToHome; //This corresponds to the back to home button
 
-    @FXML private TableView<RegistrationView> registrationHistory;
+    @FXML private TableView<RegistrationView> registrationHistory; //This corresponds to the tableview to show the history of registrations
 
     public AllRegistrationsController(Stage parentStage, Model model){
         this.stage = new Stage();
@@ -41,10 +41,13 @@ public class AllRegistrationsController {
 
     @FXML
     public void initialize() throws SQLException {
+        //Load all the registrations from all users into an observable list
         ObservableList<RegistrationView> registrations = loadRegistrationsFromDB();
 
+        //Set the items of the tableView to the observable list
         registrationHistory.setItems(registrations);
 
+        //When the "back to home" button is pressed
         backToHome.setOnAction(event -> {
             stage.close();
             parentStage.show();
@@ -52,6 +55,7 @@ public class AllRegistrationsController {
 
     }
 
+    //Method to load all the registrations from all the users into a list
     public ObservableList<RegistrationView> loadRegistrationsFromDB() throws SQLException{
         ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
 

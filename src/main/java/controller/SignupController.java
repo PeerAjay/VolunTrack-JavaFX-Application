@@ -51,7 +51,7 @@ public class SignupController {
             //get the list of password errors if any using authentication manager
             List<String> errors = AuthenticationManager.getPasswordErrors(password.getText());
 
-            //Adding some more errors
+            //Adding some more errors if any
             errors.addAll(AuthenticationManager.existsCheck(fullName.getText(), email.getText(), username.getText(), model.getUserDao()));
 
             //If the list is empty there are no errors so create the user

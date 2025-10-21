@@ -38,18 +38,17 @@ public class HomeController {
     @FXML private Label welcomeLabel; // // Corresponds to the Menu item "welcomeLabel" in HomeView.fxml
     @FXML private Label status; // // Corresponds to the Menu item "status" in HomeView.fxml
     @FXML private Button viewCart; //Corresponds to the "viewCart" button in HomeView.fxml
-    @FXML private Button viewHistory;
-    @FXML private Button refresh;
+    @FXML private Button viewHistory; //Corresponds to the "view history" button in the home view
+    @FXML private Button refresh; // Corresponds to the refresh button
 
-    //These link the fields from the project object to the columns in the table view
-    @FXML private TableView<Project> projectTableView;
-    @FXML private TableColumn<Project, String> titleColumn;
-    @FXML private TableColumn<Project, String> locationColumn;
-    @FXML private TableColumn<Project, String> dayColumn;
-    @FXML private TableColumn<Project, String> hourlyValueColumn;
-    @FXML private TableColumn<Project, String> regSlotsColumn;
-    @FXML private TableColumn<Project, String> totalSlotsColumn;
-    @FXML private TableColumn<Project, Void> addToCart;
+    @FXML private TableView<Project> projectTableView; //This corresponds to the tableView to show the projects
+//    @FXML private TableColumn<Project, String> titleColumn;
+//    @FXML private TableColumn<Project, String> locationColumn;
+//    @FXML private TableColumn<Project, String> dayColumn;
+//    @FXML private TableColumn<Project, String> hourlyValueColumn;
+//    @FXML private TableColumn<Project, String> regSlotsColumn;
+//    @FXML private TableColumn<Project, String> totalSlotsColumn;
+    @FXML private TableColumn<Project, Void> addToCart; //This corresponds to the add to cart column for the add to cart buttons
 
 
     public HomeController(Stage parentStage, Model model) {
@@ -63,12 +62,13 @@ public class HomeController {
         //Loading the csv data using the loadCSVData helper function
         ObservableList<Project> projects = loadProjectsfromDB();
         projectTableView.setItems(projects);
+
+        //Setting the current user
         User user = SessionManager.getInstance().getCurrentUser();
 
-
+        //Setting the current users username to the welcome text
         welcomeLabel.setText("Welcome, " + user.getUsername());
-        //Making logout menu a label so it can act as a button
-        Label logoutLabel = new Label("logout");
+
 
         //Using callback to add a button to the button column, basically a blueprint telling tableview what  to add in the cells in that column
         Callback<TableColumn<Project, Void>, TableCell<Project, Void>> cellFactory = new Callback<>() {
@@ -87,9 +87,11 @@ public class HomeController {
                             // Getting the Project object for the row
                             Project project = getTableView().getItems().get(getIndex());
 
+                            //Get the current day of the week
                             int todayDay = LocalDate.now().getDayOfWeek().getValue();
                             int projectDay = getDayValue(project.getDay());
 
+                            //If the add to cart button is pressed on a day that is after the project day is give an error
                             if (projectDay < todayDay){
                                 status.setText("Project has passed");
                                 status.setTextFill(Color.RED);
@@ -136,6 +138,7 @@ public class HomeController {
             }
         };
 
+        //Setting the cell factory of the column to display the buttons
         addToCart.setCellFactory(cellFactory);
 
         //On 'change password' button press
@@ -185,6 +188,7 @@ public class HomeController {
             }
         });
 
+        //When the view history button is pressed
         viewHistory.setOnAction(event->{
             try {
                 //Switch to the view History page
@@ -205,9 +209,11 @@ public class HomeController {
             }
         });
 
+        //When the refresh button is pressed
         refresh.setOnAction(event->{
             stage.close();
 
+            //Load everything again
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HomeView.fxml"));
 
@@ -233,10 +239,6 @@ public class HomeController {
         return projects;
     }
 
-    //Set username function sets the welcome label to the username
-//    public void setUsername(String username) {
-//        welcomeLabel.setText("Welcome, " + username);
-//    }
 
     //Convert the string value of the day into an int so it's easy to compare
     private int getDayValue(String day) {

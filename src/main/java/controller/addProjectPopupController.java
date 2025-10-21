@@ -50,12 +50,16 @@ public class addProjectPopupController {
     @FXML
     public void initialize() {
 
+        //When the "add to cart" button is pressed
         addInputToCart.setOnAction(event ->{
+
+            //Set the selected number of slots and the selected number of hours of the cartItem
+            //Rest of the cart item fields are set in the helper method
             cartItem.setNumSlots(numSlotsInput.getValue());
             cartItem.setHoursPerSlot(numHoursInput.getValue());
 
             try {
-                //System.out.println("ADDED ITEM HOURLY VALUE: " + cartItem.getHourlyValue());
+                //Adding the cartItem to the database
                 model.getCartItemsDao().addProject(cartItem);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -73,6 +77,7 @@ public class addProjectPopupController {
     }
 
     public void setUserProjectValue(String username, Project project){
+        //Setting some values for the cartItem when the page is loaded from the home page when the button is pressed
         cartItem.setUsername(username);
         cartItem.setProjectID(project.getProjectId());
         cartItem.setHourlyValue(project.getHourlyValue());

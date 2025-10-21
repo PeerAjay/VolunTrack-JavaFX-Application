@@ -51,26 +51,34 @@ public class ModifyProjectController {
 
     @FXML
     public void initialize() {
+
+        //Setting the text of fields
         titleField.setText(modifyProject.getTitle());
         locationField.setText(modifyProject.getLocation());
         dayField.setText(modifyProject.getDay());
         hourlyValueField.setText(Integer.toString(modifyProject.getHourlyValue()));
         totalSlotsField.setText(modifyProject.getTotalSlots());
 
+        //When the confirm button is pressed
         confirmChange.setOnAction(event->{
+            //Initialise a list to hold the errors if any
             List<String> errors = new ArrayList<>();
 
             try {
+                //Get all the errors using authenticationManager and add them to the list if any
                 errors = AuthenticationManager.validateProgramAddition(titleField.getText(), locationField.getText(), dayField.getText(),
                         hourlyValueField.getText(), totalSlotsField.getText(), model.getProjectsDao());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
 
+            //If the list is empty there are no errors
             if(errors.isEmpty()){
+                //Create a new project to modify the original
                 Project modProject = new Project(modifyProject.getProjectId(), titleField.getText(), locationField.getText(), dayField.getText(),
                         Integer.parseInt(hourlyValueField.getText()), "0", totalSlotsField.getText(), "true");
 
+                //Updating the project in the database
                 try {
                     model.getProjectsDao().updateProject(modProject);
                     status.setText("Successfully Updated!");
@@ -87,12 +95,14 @@ public class ModifyProjectController {
 
         });
 
+        //When the back button is pressed
         back.setOnAction(event->{
             stage.close();
             parentStage.show();
         });
     }
 
+    //Helper method called to set the project to be modified
     public void setProject(Project project){
         modifyProject = project;
     }

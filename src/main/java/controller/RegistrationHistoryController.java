@@ -33,7 +33,7 @@ public class RegistrationHistoryController {
     @FXML private Button export; //This corresponds to the export button
     @FXML private Label status; //This corresponds to the status label
 
-    @FXML private TableView<RegistrationView> registrationHistory;
+    @FXML private TableView<RegistrationView> registrationHistory; //This corresponds to the tableview to show the registration history
 
     public RegistrationHistoryController(Stage parentStage, Model model) {
         this.stage = new Stage();
@@ -43,20 +43,28 @@ public class RegistrationHistoryController {
 
     @FXML
     public void initialize() throws SQLException {
+
+        //Load the registrations for the user into an observable list to be displayed
         ObservableList<RegistrationView> registrations = loadRegistrationsFromDB();
 
+        //Set the tableview to view the list of registrations
         registrationHistory.setItems(registrations);
 
+        //When the back to home button is pressed
         backToHome.setOnAction(event -> {
             stage.close();
             parentStage.show();
         });
 
+        //When the export button is pressed
         export.setOnAction(event->{
+
+            //If there are no registrations give an error message
             if(registrationHistory.getItems().isEmpty()){
                 status.setText("No Registrations");
                 status.setTextFill(Color.RED);
             }
+            //else call the export helper method
             else {
                 export();
             }
@@ -64,10 +72,13 @@ public class RegistrationHistoryController {
 
     }
 
+    //Helper method to load the registrations of a user to an observable list
     public ObservableList<RegistrationView> loadRegistrationsFromDB() throws SQLException{
+        //Get the username of the current user of the session
         String username = SessionManager.getInstance().getCurrentUser().getUsername();
         ObservableList<RegistrationView> registrations = FXCollections.observableArrayList();
 
+        //Call dao to get the registrations for the user
         registrations = model.getRegistrationsDoa().getRegistrationHistory(username);
 
         return registrations;
@@ -75,6 +86,7 @@ public class RegistrationHistoryController {
 
     //export helper method formats and write all the registrations for the user to a file using filewriter
     public void export(){
+        //get and set the username of the user as the title of the file
         String username = SessionManager.getInstance().getCurrentUser().getUsername();
         String filename = "history_" + username + ".txt"; //Setting the name of the file
 

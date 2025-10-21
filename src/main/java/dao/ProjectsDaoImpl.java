@@ -71,7 +71,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return projects;
     }
 
-    //Function to get all the projects from the database
+    //Function to get all the projects from the database including ones that are not enabled for admin
     @Override
     public ObservableList<Project> loadProjectsAdmin() throws SQLException{
         ObservableList<model.Project> projects = FXCollections.observableArrayList();
@@ -106,6 +106,8 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return projects;
     }
 
+
+    //Updating the slots for a project for when somebody checks out
     @Override
     public void changeSlots(Registration registration) throws SQLException{
         String getSql = "SELECT regSlots, totalSlots FROM projects WHERE projectID = ?";
@@ -151,6 +153,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
 
     }
 
+    //Getting the grouped projects for the admin's home view
     @Override
     public Map<String, List<Project>> getGroupedProjects() throws SQLException {
         List<Project> allProjects = loadProjectsAdmin();
@@ -160,6 +163,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return groupedProjects;
     }
 
+    //Setting the project's status to either enabled or disabled
     @Override
     public void enableDisableProject(int projectId, String isEnabled) throws SQLException {
         String sql = "UPDATE projects SET isEnabled = ? WHERE projectID = ?";
@@ -171,6 +175,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         }
     }
 
+    //Checking if a project with a given title, location and day already exists
     @Override
     public boolean projectExists(String title, String location, String day) throws SQLException {
         String sql = "SELECT COUNT(*) FROM projects WHERE title = ? AND location = ? AND day = ?";
@@ -193,6 +198,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
         return false;
     }
 
+    //Adding a project to the database of projects
     @Override
     public void addProject(ProjectAdd projectAdd) throws SQLException{
 
@@ -216,6 +222,7 @@ public class ProjectsDaoImpl implements ProjectsDao {
 
     }
 
+    //Updating an existing project in the database
     @Override
     public void updateProject(Project project) throws SQLException {
         String sql = "UPDATE projects SET title = ?, location = ?, day = ?, hourlyValue = ?, totalSlots = ? " +

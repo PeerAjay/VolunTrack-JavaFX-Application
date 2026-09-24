@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.MenuButton?>
+
+    <VBox prefHeight="450.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <ToolBar prefHeight="40.0" prefWidth="200.0">
+                <items>
+                    <Button fx:id="backToHome" mnemonicParsing="false" text="Back To Home"/>
+                </items>
+            </ToolBar>
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <children>
+                    <Label fx:id="cartTitle" text="Project Cart" style="-fx-font-size: 18pt;"  wrapText="true" />
+                    <Button fx:id="refresh" mnemonicParsing="false" text="Refresh" style="-fx-font-size: 10pt;"/>
+                    <Button fx:id="checkout" mnemonicParsing="false" text="Checkout" style="-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 10pt;"/>
+                    <Label fx:id="status" style="-fx-font-size: 15pt;"  wrapText="true" />
+                </children>
+            </HBox>
+            <TableView fx:id="cartTableView">
+                <columns>
+                    <TableColumn fx:id="titleColumn" text="Project Title">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="title" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="locationColumn" text="Location">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="location" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="dayColumn" text="Day">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="day" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="hourlyValueColumn" text="Hourly Value">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="hourlyValue" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="regSlotsColumn" text="Your Registered Slots">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="numSlots" />
+                        </cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="numHoursColumn" text="Your Hours Per Slot">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="hoursPerSlot" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="modify" text="Modify" prefWidth="80" />
+                    <TableColumn fx:id="delete" text="Delete" prefWidth="80" />
+                </columns>
+            </TableView>
+
+    </children>
+</VBox>

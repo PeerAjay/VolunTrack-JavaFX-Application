@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <ToolBar prefHeight="40.0" prefWidth="200.0">
+            <items>
+                <Button fx:id="logout" mnemonicParsing="false" text="Logout"/>
+                <Button fx:id="allRegistrations" mnemonicParsing="false" text="View All Registrations"/>
+                <Button fx:id="createProject" mnemonicParsing="false" text="Create a Project"/>
+                <Button fx:id="refresh" mnemonicParsing="false" text="Refresh"/>
+            </items>
+        </ToolBar>
+    </top>
+
+    <left>
+        <ListView fx:id="projectTitlesListView" prefWidth="200"/>
+    </left>
+
+    <center>
+        <TableView fx:id="projectDetailsTableView">
+            <columns>
+                <TableColumn fx:id="locationColumn" text="Location" prefWidth="150">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="location" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="dayColumn" text="Day" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="day" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="hourlyValueColumn" text="Hourly Value" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="hourlyValue" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="regSlotsColumn" text="Registered Slots" prefWidth="120">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="regSlots" />
+                    </cellValueFactory>
+                </TableColumn>
+
+                <TableColumn fx:id="totalSlotsColumn" text="Total Slots" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="totalSlots" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="enableDisable" text="Enable/Disable" prefWidth="120" />
+                <TableColumn fx:id="modify" text="Modify" prefWidth="120" />
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>
